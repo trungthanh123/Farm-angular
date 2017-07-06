@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+          <div class="panel panel-success">
+              <div class="panel-heading">Available products</div>
+              <div class="panel-body">
+                  <div *ngFor="let product of availableProducts" class="panel panel-default"
+                      dnd-draggable [dragEnabled]="product.quantity>0" [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
+                      <div class="panel-body">
+                          <div [hidden]="product.quantity===0">{{product.name}}<br>(available: {{product.quantity}})</div>
+                          <div [hidden]="product.quantity>0"><del>{{product.name}}</del><br>(NOT available)</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-8">
+          <div dnd-droppable (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']" class="panel panel-info">
+              <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
+              <div class="panel-body">
+                  <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" dnd-draggable [dropZones]="['delete-dropZone']">
+                      <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
+                      <div class="panel-body">
+                      {{product.name}}<br>({{product.date | date:'short'}})
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-1">
+        <sign-up></sign-up>
+        <img dnd-draggable src="assets/img/sprinkler.png" alt="">
+      </div>
+
+    </div>
+</div>
