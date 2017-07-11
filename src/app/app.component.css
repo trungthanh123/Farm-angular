@@ -1,9 +1,13 @@
+
 .square {
-  height: auto;
-  width: auto;
-  float: left;
-  margin-right: 4px;
-}
+    float: left;
+    line-height: 16vh;
+    height: 20vh;
+    width: 18%;
+   
+    margin-right: 10px;
+    text-align: center; 
+}   
 
 .dnd-drag-start {
     -moz-transform:scale(0.8);
@@ -28,4 +32,8 @@
   transform:scale(0.9);
   opacity:0.7;
   border: 1px dashed #000;
+}
+.theGround {
+    
+    height: 90vh;
 }

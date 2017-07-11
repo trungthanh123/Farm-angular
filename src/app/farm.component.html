@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
   <div class="row">
       <div class="col-md-3">
           <div class="panel panel-success">
@@ -15,20 +15,22 @@
           </div>
       </div>
       <div class="col-md-8">
-          <div dnd-droppable (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']" class="panel panel-info">
+          <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']" class="panel panel-info theGround">
               <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
               <div class="panel-body">
-                  <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" dnd-draggable [dropZones]="['delete-dropZone']">
+                  <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" >
                       <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
                       <div class="panel-body">
-                      {{product.name}}<br>({{product.date | date:'short'}})
+                      {{product.name}}
+                      <!--<br>({{product.date | date:'short'}})-->
                       </div>
                   </div>
               </div>
           </div>
       </div>
       <div class="col-md-1">
-        
+        <button type="button" name="button" class="btn btn-success" (click)="logOut()">Log out</button>
+        <br>
         <img dnd-draggable src="assets/img/sprinkler.png" alt="">
       </div>
 

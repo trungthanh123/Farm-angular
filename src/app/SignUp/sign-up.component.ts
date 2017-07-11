@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'sign-up',
@@ -12,7 +13,7 @@ export class SignUpComponent {
     {username: 'admin1', password: '1234'},
   ];
   public message = '';
-  constructor(private router: Router){
+  constructor(private router: Router, private loginService: LoginService){
 
   }
   vadidateForm(name, password) {
@@ -20,6 +21,7 @@ export class SignUpComponent {
     {
       if(name == this.users[i].username && password == this.users[i].password)
       {
+        this.loginService.setLogin(true);
         this.router.navigate(['/my-farm']);
       }
       else this.message = 'Either Username or Password is wrong';
