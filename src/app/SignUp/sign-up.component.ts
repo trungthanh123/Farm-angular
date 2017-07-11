@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
@@ -7,7 +7,8 @@ import { LoginService } from '../services/login.service';
   templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent {
-
+  
+  public ten:string = 'a';
   users = [
     {username: 'admin', password: '123'},
     {username: 'admin1', password: '1234'},
@@ -21,6 +22,7 @@ export class SignUpComponent {
     {
       if(name == this.users[i].username && password == this.users[i].password)
       {
+        //this.username = name;
         this.loginService.setLogin(true);
         this.router.navigate(['/my-farm']);
       }

@@ -5,13 +5,15 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ProgressbarModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
 import { FarmComponent } from './farm.component';
 import { RecycleMultiSortableComponent } from './test.component';
 import { SignUpComponent } from './SignUp/sign-up.component';
+import { LevelUserComponent } from './level-user/level.component';
+
 
 
 import { LoginService } from './services/login.service';
@@ -19,7 +21,7 @@ import { CheckLogin } from './guards/check-login.guard';
 
 const appRoutes: Routes = [
   { path: '', component: SignUpComponent },
-  { path: 'my-farm', component: FarmComponent,},
+  { path: 'my-farm', component: FarmComponent, },
 ];
 // canActivate: [CheckLogin]
 @NgModule({
@@ -28,6 +30,7 @@ const appRoutes: Routes = [
     FarmComponent,
     RecycleMultiSortableComponent,
     SignUpComponent,
+    LevelUserComponent
   ],
   imports: [
 
@@ -40,7 +43,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-
+    ProgressbarModule.forRoot(),
   ],
   providers: [LoginService, CheckLogin,],
   bootstrap: [AppComponent]

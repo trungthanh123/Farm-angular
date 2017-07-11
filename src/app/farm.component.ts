@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 
@@ -12,7 +12,7 @@ export class FarmComponent implements OnInit{
     availableProducts: Array<Product> = [];
     shoppingBasket: Array<Product> = [];
     dem = 0;
-    check:boolean = true; 
+    check:boolean = true;
 
     ngOnInit(){
       // xuất ra màn hình những cái đã lưu trữ stogate
@@ -26,10 +26,10 @@ export class FarmComponent implements OnInit{
       
     }
     constructor(private router: Router, private loginService: LoginService) {
-        this.availableProducts.push(new Product('Apple', 15, ''));
-        this.availableProducts.push(new Product('Orange', 1, ''));
-        this.availableProducts.push(new Product('Lemon', 5, ''));
-        this.availableProducts.push(new Product('Dragon fruit', 4, ''));
+        this.availableProducts.push(new Product('Apple', 15, '', 15));
+        this.availableProducts.push(new Product('Orange', 1, '', 20));
+        this.availableProducts.push(new Product('Lemon', 5, '', 30));
+        this.availableProducts.push(new Product('Dragon fruit', 4, '', 30));
     }
 
     orderedProduct($event: any) {
@@ -41,11 +41,13 @@ export class FarmComponent implements OnInit{
     addToBasket($event: any) {
         let newProduct: Product = $event.dragData;
         newProduct.date =  new Date();
-        this.shoppingBasket.push(new Product(newProduct.name, 1, newProduct.date));
+        this.shoppingBasket.push(new Product(newProduct.name, 1, newProduct.date, newProduct.exp));
         //stogate cây đã trồng
         localStorage.setItem("planted-storage", JSON.stringify(this.shoppingBasket));
         //nếu trồng được 15 cây thì sẽ disable 'drop'
         this.dem = this.dem + 1;
+       
+        
         if(this.dem > 14) { this.check =false}
         localStorage.setItem("count-planted", this.dem.toString());
     }
@@ -58,7 +60,13 @@ export class FarmComponent implements OnInit{
         return count;
     }
 
+    exp:number = 0;
     destroyaPlant(index) {
+      this.dem--;
+      if(this.dem < 15) this.check =true;
+      
+    //   this.exp = this.shoppingBasket[index].exp;
+      //console.log(this.exp);
       this.shoppingBasket.splice(index,1);
     }
 
@@ -66,8 +74,9 @@ export class FarmComponent implements OnInit{
       this.router.navigate(['/']);
       this.loginService.setLogin(false);
     }
+    
 }
 
 class Product {
-  constructor(public name: string, public quantity: number, public date) {}
+  constructor(public name: string, public quantity: number, public date, public exp: number) {}
 }

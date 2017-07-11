@@ -1,6 +1,12 @@
 <div class="container" >
   <div class="row">
       <div class="col-md-3">
+        <level-user #level></level-user>
+        <!--[name]="'abc'"-->
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-3">
           <div class="panel panel-success">
               <div class="panel-heading">Available products</div>
               <div class="panel-body">
@@ -20,6 +26,7 @@
               <div class="panel-body">
                   <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" >
                       <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
+                      <span class="glyphicon glyphicon-grain" style="float:left;margin:5px;" (click)="destroyaPlant(i)" (click)="level.AddPercents(product.exp)"></span>
                       <div class="panel-body">
                       {{product.name}}
                       <!--<br>({{product.date | date:'short'}})-->
@@ -33,6 +40,7 @@
         <br>
         <img dnd-draggable src="assets/img/sprinkler.png" alt="">
       </div>
-
+      <!--<button (click)="harvest()">Harvest</button>-->
+      <!--<button (click)='level.AddPercents(15)'></button>-->
     </div>
 </div>
