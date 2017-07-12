@@ -6,50 +6,41 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   
 })
 export class LevelUserComponent {
-  //public max: number = 200;
+  public max: number = 100;
   //public showWarning: boolean;
   public dynamic: number = 0;
   public type: string;
   public level:number = 0;
   @Input() username:string;
-//   @Input() name:string;
  
 
   public constructor() {
-    // this.AddPercents(a);
+    
   }
   
   public AddPercents(exp:number) {
     this.dynamic = this.dynamic + exp;
-    // this.dynamic = 50;
-    // this.addExp.emit(a);
-    // console.log(a);
-    
-    
-    //this.dynamic = this.dynamic + this.expLevel;
-    
-    // let value:number = 0;
-    // // let value = Math.floor((Math.random() * 100) + 1);
-    // let type: string;
+    let type:string;
  
-    // if (value < 25) {
-    //   type = 'warning';
-    // } else if (value < 50) {
-    //   type = 'info';
-    // } else if (value < 75) {
-    //   type = 'info';
-    // } else {
-    //   type = 'success';
-    // }
-    // //this.dynamic = this.expLevel;
-    // this.dynamic = this.dynamic + this.expLevel;
-    
-    if(this.dynamic > 100){
-        this.dynamic = this.dynamic - 100;
-        this.level++;
+    if (this.dynamic < this.max/4) {
+      type = 'danger';
+    } else if (this.dynamic < this.max/3) {
+      type = 'warning';
+    } else if (this.dynamic <this.max/1.5) {
+      type = 'success';
+    } else {
+      type = 'info';
     }
-    // this.type = type;
-    // return this.dynamic;
+
+    
+    if(this.dynamic > this.max){
+        this.dynamic = this.dynamic - this.max;
+        this.level++;
+        this.max = this.max + 50*this.level;
+        type = 'danger';
+        alert("Congratulations! Level Up: " + this.level);
+    }
+    this.type = type;
   }
  
 }
