@@ -16,6 +16,7 @@ import { LevelUserComponent } from './level-user/level.component';
 import { ShopComponent } from './shop/shop.component';
 import { MoneyComponent } from './money/money.component';
 
+import { AppService } from './services/app.service';
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
 
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     ),
     ProgressbarModule.forRoot(),
   ],
-  providers: [LoginService, CheckLogin,],
+  providers: [LoginService, CheckLogin,AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

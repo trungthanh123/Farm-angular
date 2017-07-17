@@ -1,21 +1,23 @@
 import { Component, Output, EventEmitter } from '@angular/core';
- 
+import { AppService } from '../services/app.service';
+
 @Component({
   selector: 'my-shop',
   templateUrl: './shop.component.html',
-  styleUrls:['../app.component.css']
+  styleUrls: ['../app.component.css']
 })
-export class ShopComponent {  
+export class ShopComponent {
   @Output() outputShop = new EventEmitter();
-  name:string;
-  sum:number;
+  name: string;
+  sum: number;
+  currentMoney: number;
 
-  quantity_Apples:number = 0;
-  quantity_Orange:number = 0;
-  quantity_Lemon:number = 0;
-  quantity_Dragon:number = 0;
-  quantity_Coconut:number = 0;
-  quantity_Kiwi:number = 0;
+  quantity_Apples: number = 0;
+  quantity_Orange: number = 0;
+  quantity_Lemon: number = 0;
+  quantity_Dragon: number = 0;
+  quantity_Coconut: number = 0;
+  quantity_Kiwi: number = 0;
   price_Apple = 5;
   price_Orange = 10;
   price_Lemon = 8;
@@ -23,18 +25,31 @@ export class ShopComponent {
   price_Coconut = 7;
   price_Kiwi = 15;
 
+  constructor(private appService: AppService) {
+    //lắng nghe câu trả lời từ 'money' component (service)
+    appService.money$.subscribe(data => {
+      this.currentMoney = data;
+    });
+  }
+
   buy(form) {
+    this.sum = (this.quantity_Apples * this.price_Apple) + (this.quantity_Orange * this.price_Orange) +
+      (this.quantity_Lemon * this.price_Lemon) + (this.quantity_Dragon * this.price_Dragon);
+    // nếu số tiền để mua < số tiền hiện có => dữ liệu từ 'output' sẽ đc chuyển đi
+    if (this.sum < this.currentMoney) {
+      this.currentMoney -= this.sum;
+      //Sau khi thanh toán xong, truyền 'currentMoney' sang cho 'shop' component (service)
+      this.appService.shopData(this.currentMoney);
+      //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)
       this.outputShop.emit(form.value);
-      this.sum = (this.quantity_Apples * this.price_Apple) + (this.quantity_Orange * this.price_Orange) + 
-                  (this.quantity_Lemon * this.price_Lemon) + (this.quantity_Dragon * this.price_Dragon);
-      console.log(this.sum);
-      this.quantity_Apples = 0;
-      this.quantity_Dragon = 0;
-      this.quantity_Lemon = 0;
-      this.quantity_Orange = 0;
-      // console.log(form.value);
-      // console.log(form.controls['quantity-apple'].value);
-      // console.log(form.controls['quantity-orange'].value);
-          
+    }
+    else alert("You don't have enough money")
+    this.quantity_Apples = 0;
+    this.quantity_Dragon = 0;
+    this.quantity_Lemon = 0;
+    this.quantity_Orange = 0;
+    // console.log(form.value);
+    // console.log(form.controls['quantity-apple'].value);
+    // console.log(form.controls['quantity-orange'].value);
   }
 }
