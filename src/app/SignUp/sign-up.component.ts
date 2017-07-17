@@ -22,6 +22,7 @@ export class SignUpComponent {
     {
       if(name == this.users[i].username && password == this.users[i].password)
       {
+        localStorage.setItem("username", this.users[i].username);
         //this.username = name;
         this.loginService.setLogin(true);
         this.router.navigate(['/my-farm']);

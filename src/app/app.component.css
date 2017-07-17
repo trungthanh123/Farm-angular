@@ -35,8 +35,27 @@
 }
 .theGround {
     
-    height: 90vh;
+    height: 83vh;
 }
 .glyphicon-grain {
     color: green;
+}
+.product {
+    width: auto;
+    height: auto;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+}
+.product_name, .product_price, .product_quantity {
+    margin-top: 15px;
+}
+.product_price {
+    border-bottom: 1px solid rgba(136, 136, 136, .6);
+    display: inline-block;
+}
+.modal-content  {
+    height: auto;
 }

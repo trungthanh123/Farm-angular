@@ -13,8 +13,8 @@ import { FarmComponent } from './farm.component';
 import { RecycleMultiSortableComponent } from './test.component';
 import { SignUpComponent } from './SignUp/sign-up.component';
 import { LevelUserComponent } from './level-user/level.component';
-
-
+import { ShopComponent } from './shop/shop.component';
+import { MoneyComponent } from './money/money.component';
 
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     FarmComponent,
     RecycleMultiSortableComponent,
     SignUpComponent,
-    LevelUserComponent
+    LevelUserComponent, ShopComponent, MoneyComponent
   ],
   imports: [
 
