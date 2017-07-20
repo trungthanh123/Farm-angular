@@ -24,16 +24,14 @@ export class FarmComponent implements OnInit {
         // this.dem = Number(localStorage.getItem('count-planted'));
         // if(this.dem > 14) { this.check =false}
     }
-    constructor(private router: Router, private loginService: LoginService, private _appservice: AppService) {
-        console.log('ok');
-        
-        this.availableProducts.push(new Product('Apple', 15, '', 15, 20));
-        this.availableProducts.push(new Product('Orange', 1, '', 20, 15));
-        this.availableProducts.push(new Product('Lemon', 5, '', 30, 30));
-        this.availableProducts.push(new Product('Dragon fruit', 4, '', 30, 5));
+    constructor(private router: Router, private loginService: LoginService, private _appservice: AppService) {       
+        this.availableProducts.push(new Product(0,'Apple', 15, '', 15, 20, ''));
+        this.availableProducts.push(new Product(1,'Orange', 1, '', 20, 15, ''));
+        this.availableProducts.push(new Product(2,'Lemon', 5, '', 30, 30, ''));
+        this.availableProducts.push(new Product(3,'Dragon fruit', 4, '', 30, 5, ''));
         //nhan data khi ng choi mua 1 square tu 'shop' component
         _appservice.quantitySquare_shop$.subscribe(data => {
-        this.maxTreesAllowedToGrow += data; this.check = true;
+        this.maxTreesAllowedToGrow += data; this.check = true;       
         })
     }
 
@@ -46,7 +44,7 @@ export class FarmComponent implements OnInit {
     addToBasket($event: any) {
         let newProduct: Product = $event.dragData;
         newProduct.date = new Date();
-        this.shoppingBasket.push(new Product(newProduct.name, 1, newProduct.date, newProduct.exp, newProduct.reward));
+        this.shoppingBasket.push(new Product(newProduct.id,newProduct.name, 1, newProduct.date, newProduct.exp, newProduct.reward, newProduct.state));
         //stogate cây đã trồng
         // localStorage.setItem("planted-storage", JSON.stringify(this.shoppingBasket));                
         //nếu trồng được 10 cây thì sẽ disable 'drop'
@@ -79,6 +77,7 @@ export class FarmComponent implements OnInit {
         this.loginService.setLogin(false);
         localStorage.removeItem("username");
     }
+    
     public checkModalShop = true;
     getValueFromShop(event) {
         this.checkModalShop = false;
@@ -86,12 +85,10 @@ export class FarmComponent implements OnInit {
         this.availableProducts[1].quantity += Number(event.numberOfOranges);
         this.availableProducts[2].quantity += Number(event.numberOfLemons);
         this.availableProducts[3].quantity += Number(event.numberOfDragons);
-
-
     }
 
 }
 
 class Product {
-    constructor(public name: string, public quantity: number, public date, public exp: number, public reward: number) { }
+    constructor(public id:number, public name: string, public quantity: number, public date, public exp: number, public reward: number, public state:string) { }
 }
