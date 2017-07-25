@@ -14,12 +14,13 @@
       <div class="panel panel-success">
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
-          <div *ngFor="let product of availableProducts" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0"
+          <div *ngFor="let product of fruits" class="panel panel-default" dnd-draggable 
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
+            <!--[dragEnabled]="product.quantity>0"-->
             <div class="panel-body">
-              <div [hidden]="product.quantity===0">{{product.name}}<br>(available: {{product.quantity}})</div>
-              <div [hidden]="product.quantity>0">
-                <del>{{product.name}}</del><br>(NOT available)</div>
+              <div [hidden]="product.quantity===0">{{product.TenCay}}<br>(available: {{1}})</div>
+              <!--<div [hidden]="product.quantity>0">
+                <del>{{product.TenCay}}</del><br>(NOT available)</div>-->
             </div>
           </div>
         </div>
@@ -31,12 +32,12 @@
         class="panel panel-info theGround">
         <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
         <div class="panel-body">
-          <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square">
-            <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
+          <div *ngFor="let product of cayDaTrong; let i = index" class="panel panel-default square" [ngClass]="getClassName(product.TenCay)">
+            <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)" ></span>
             <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)" (click)="level.AddPercents(product.exp)"></span>
-            <div class="panel-body">
-              {{product.name}}
-              <!--<br>({{product.date | date:'short'}})-->
+            <div class="panel-body show-info">
+              {{product.TenCay | uppercase}}
+              <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
             </div>
           </div>
         </div>
@@ -47,7 +48,5 @@
       <br>
       <img dnd-draggable src="assets/img/sprinkler.png" alt="">
     </div>
-    <!--<button (click)="harvest()">Harvest</button>-->
-    <!--<button (click)='level.AddPercents(15)'></button>-->
   </div>
 </div>

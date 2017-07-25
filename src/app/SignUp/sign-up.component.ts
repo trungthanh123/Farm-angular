@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { RequestOptions, Headers } from "@angular/http";
+import { Http } from '@angular/http';
+
 
 @Component({
   selector: 'sign-up',
@@ -8,28 +11,31 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['../app.component.css']
 })
 export class SignUpComponent {
-  
-  public ten:string = 'a';
-  users = [
-    {username: 'admin', password: '123'},
-    {username: 'admin1', password: '1234'},
-  ];
+
   public message = '';
-  constructor(private router: Router, private loginService: LoginService){
 
+  constructor(private router: Router, private loginService: LoginService, private http: Http) {
   }
-  vadidateForm(name, password) {
-    for( let i in this.users)
-    {
-      if(name == this.users[i].username && password == this.users[i].password)
-      {
-        localStorage.setItem("username", this.users[i].username);
-        //this.username = name;
-        this.loginService.setLogin(true);
-        this.router.navigate(['/my-farm']);
-      }
-      else this.message = 'Either Username or Password is wrong';
-    }
 
+  vadidateForm(name, password) {
+    localStorage.setItem("username", name);
+    //this.loginService.setLogin(true);
+
+    let data = {
+      userName: name,
+      passWord: password
+    };
+    // let headers  = new Headers({ 'Content-Type': 'application/json' });
+    // let options  = new RequestOptions({ headers: headers });
+    if (name != '' && password != '') {
+      this.http.post('http://103.48.191.254/api/tree/login', data)
+      .map(res => res.json())
+      .subscribe(res => {
+        this.message = res.message; if (res.status === 200) this.router.navigate(['/my-farm']);
+      }
+      , error => this.message = error.json().message
+      );
+    }
+    else this.message = "Username and Password are required"
   }
 }

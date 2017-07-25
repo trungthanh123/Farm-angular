@@ -1,13 +1,20 @@
 
 .square {
     float: left;
-    line-height: 16vh;
+    /*line-height: 16vh;*/
+    position: relative;
     height: 20vh;
     width: 18%;
-   
+    border-width: 2px;
     margin-right: 10px;
-    text-align: center; 
-}   
+    /*text-align: center; */
+}
+.show-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 
 .dnd-drag-start {
     -moz-transform:scale(0.8);
@@ -58,4 +65,20 @@
 }
 .modal-content  {
     height: auto;
+}
+.apple {
+    border-color: #E70000;
+    color: #E70000;
+}
+.orange {
+    border-color: orange;
+    color: orange;
+}
+.lemon {
+    border-color: #E0FF59;
+    color: #E0FF59;
+}
+.dragon-fruit {
+    border-color:#B21E4B;
+    color: #B21E4B;
 }

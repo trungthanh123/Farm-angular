@@ -6,7 +6,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ProgressbarModule } from 'ngx-bootstrap';
-
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { FarmComponent } from './farm.component';
@@ -45,6 +45,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     ProgressbarModule.forRoot(),
+    HttpModule
   ],
   providers: [LoginService, CheckLogin,AppService],
   bootstrap: [AppComponent]
