@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {DndModule} from 'ng2-dnd';
+import { DndModule } from 'ng2-dnd';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,8 @@ import { MoneyComponent } from './money/money.component';
 import { AppService } from './services/app.service';
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
+import { TreeService } from './services/tree.service';
+import {ShoppingService} from './services/shopping.service'
 
 const appRoutes: Routes = [
   { path: '', component: SignUpComponent },
@@ -47,7 +49,7 @@ const appRoutes: Routes = [
     ProgressbarModule.forRoot(),
     HttpModule
   ],
-  providers: [LoginService, CheckLogin,AppService],
+  providers: [LoginService, CheckLogin, AppService, TreeService, ShoppingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

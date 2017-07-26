@@ -15,12 +15,12 @@
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
           <div *ngFor="let product of fruits" class="panel panel-default" dnd-draggable 
-            [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
+            [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <!--[dragEnabled]="product.quantity>0"-->
             <div class="panel-body">
-              <div [hidden]="product.quantity===0">{{product.TenCay}}<br>(available: {{1}})</div>
-              <!--<div [hidden]="product.quantity>0">
-                <del>{{product.TenCay}}</del><br>(NOT available)</div>-->
+              <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(available: {{product.SoLuong}})</div>
+              <div [hidden]="product.SoLuong>0">
+                <del>{{product.TenCay}}</del><br>(NOT available)</div>
             </div>
           </div>
         </div>

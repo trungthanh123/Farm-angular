@@ -4,6 +4,7 @@ import { LoginService } from './services/login.service';
 import { AppService } from './services/app.service';
 import { NgClass, NgStyle } from '@angular/common';
 import { Http } from '@angular/http';
+import { TreeService } from './services/tree.service';
 @Component({
     selector: 'my-farm',
     templateUrl: './farm.component.html',
@@ -17,9 +18,10 @@ export class FarmComponent implements OnInit {
     check: boolean = true;
     fruits = [];
     numberOfPlants: number = 1;
+    token: string;
     ngOnInit() {
     }
-    constructor(private router: Router, private loginService: LoginService, private _appservice: AppService, private _http: Http) {
+    constructor(private router: Router, private loginService: LoginService, private _appservice: AppService, private _http: Http, private _treeService: TreeService) {
         this.availableProducts.push(new Product(0, 'Apple', 15, '', 15, 20, ''));
         this.availableProducts.push(new Product(1, 'Orange', 1, '', 20, 15, ''));
         this.availableProducts.push(new Product(2, 'Lemon', 5, '', 30, 30, ''));
@@ -28,35 +30,27 @@ export class FarmComponent implements OnInit {
         _appservice.quantitySquare_shop$.subscribe(data => {
             this.maxTreesAllowedToGrow += data; this.check = true;
         })
+        
+
+        //gọi service api cây đã trồng
+        this._treeService.API_CayDaTrong().subscribe(res => this.cayDaTrong = res.result);
         //gọi api cây trong kho
-        this._http.get('http://103.48.191.254/api/tree/detail')
-            .map(data => data.json())
-            .subscribe(res => {
-                this.fruits = res.result;
-            })
-        //gọi api cây đã trồng
-        this._http.post('http://103.48.191.254/api/tree/data', { "token": this.token })
-            .map(data => data.json())
-            .subscribe(res => {
-            this.cayDaTrong = res.result
-            })
-
+        this._treeService.API_LayCayTrong().subscribe(res => this.fruits = res.result);
     }
-
     orderedProduct($event: any) {
         let orderedProduct: Product = $event.dragData;
         orderedProduct.quantity--;
     }
-    public token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnt9LCJnZXR0ZXJzIjp7fSwiX2lkIjoiNTk3NmRjNzE2MmIwM2MxYWEwZTg4MmE4Iiwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsiX192IjoiaW5pdCIsInVzZXJOYW1lIjoiaW5pdCIsInBhc3NXb3JkIjoiaW5pdCIsIkRpZW0iOiJpbml0IiwiS2luaE5naWVtIjoiaW5pdCIsIl9pZCI6ImluaXQifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7Il9fdiI6dHJ1ZSwidXNlck5hbWUiOnRydWUsInBhc3NXb3JkIjp0cnVlLCJEaWVtIjp0cnVlLCJLaW5oTmdpZW0iOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sInBhdGhzVG9TY29wZXMiOnt9LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MCwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiX192IjowLCJ1c2VyTmFtZSI6InRoYW5oQDEyMyIsInBhc3NXb3JkIjoidGhhbmgiLCJEaWVtIjowLCJLaW5oTmdpZW0iOjAsIl9pZCI6IjU5NzZkYzcxNjJiMDNjMWFhMGU4ODJhOCJ9LCIkaW5pdCI6dHJ1ZSwiaWF0IjoxNTAwOTcwODA0LCJleHAiOjE1MDA5NzE3MDR9._MzGU9RycN43XErYrmXKp5igdKYeTSCZsOW4qhId8To";
     addToBasket($event: any) {
         let newProduct = $event.dragData;
         //newProduct.date = new Date();
         this.cayDaTrong.push(newProduct);
 
-        let data = { "TenCay": newProduct.TenCay, "status": "", "location": newProduct.id, "token": this.token };
-        this._http.post('http://103.48.191.254/api/tree/plan', data)
-            .map(data => data.json())
-            .subscribe(res => console.log(res))
+        let data = { "TenCay": newProduct.TenCay, "status": newProduct.status, "location": newProduct.id, "token": '' };
+        this._treeService.API_TrongCay(data);
+        //cập nhật số lượng mỗi cây trồng trong kho
+        this._treeService.API_LayCayTrong().subscribe(res => this.fruits = res.result);
+        
         //nếu trồng được 10 cây thì sẽ disable 'drop'
         this.treePlanted = this.treePlanted + 1;
         if (this.treePlanted >= this.maxTreesAllowedToGrow) { this.check = false }
