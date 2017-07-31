@@ -19,6 +19,7 @@ import { MoneyComponent } from './money/money.component';
 import { AppService } from './services/app.service';
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
+import { PagerService } from './services/pagination.service'
 
 const appRoutes: Routes = [
   { path: '', component: SignUpComponent },
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
     ),
     ProgressbarModule.forRoot(),
   ],
-  providers: [LoginService, CheckLogin,AppService],
+  providers: [LoginService, CheckLogin,AppService, PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

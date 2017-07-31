@@ -1,26 +1,34 @@
 <div class="container">
   <div class="row">
-    
-      <div class="col-md-3">
-        <level-user #level></level-user>
-      </div>
-      <div class="col-md-3  pull-right">
-        <money #money></money>
-      </div>
+
+    <div class="col-md-3">
+      <level-user #level></level-user>
+    </div>
+    <div class="col-md-3  pull-right">
+      <money #money></money>
+    </div>
 
   </div>
   <div class="row">
     <div class="col-md-3">
-      <div class="panel panel-success">
+      <div class="panel panel-success warehouse">
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
-          <div *ngFor="let product of availableProducts" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0"
-            [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
+          <div *ngFor="let product of pageFruits" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0" [dragData]="product"
+            (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
             <div class="panel-body">
               <div [hidden]="product.quantity===0">{{product.name}}<br>(available: {{product.quantity}})</div>
               <div [hidden]="product.quantity>0">
                 <del>{{product.name}}</del><br>(NOT available)</div>
             </div>
+          </div>
+          <!-- pager -->
+          <div>
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+              <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -33,7 +41,8 @@
         <div class="panel-body">
           <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square">
             <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
-            <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)" (click)="level.AddPercents(product.exp)"></span>
+            <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)"
+              (click)="level.AddPercents(product.exp)"></span>
             <div class="panel-body">
               {{product.name}}
               <!--<br>({{product.date | date:'short'}})-->
@@ -47,7 +56,6 @@
       <br>
       <img dnd-draggable src="assets/img/sprinkler.png" alt="">
     </div>
-    <!--<button (click)="harvest()">Harvest</button>-->
-    <!--<button (click)='level.AddPercents(15)'></button>-->
+
   </div>
 </div>
