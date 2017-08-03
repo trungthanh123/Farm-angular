@@ -19,7 +19,8 @@ import { MoneyComponent } from './money/money.component';
 import { AppService } from './services/app.service';
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
-import { PagerService } from './services/pagination.service'
+import { PagerService } from './services/pagination.service';
+import { FilterPipe } from './pipes/filter.pipe'
 
 const appRoutes: Routes = [
   { path: '', component: SignUpComponent },
@@ -32,7 +33,7 @@ const appRoutes: Routes = [
     FarmComponent,
     RecycleMultiSortableComponent,
     SignUpComponent,
-    LevelUserComponent, ShopComponent, MoneyComponent
+    LevelUserComponent, ShopComponent, MoneyComponent, FilterPipe
   ],
   imports: [
 

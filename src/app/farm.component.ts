@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { AppService } from './services/app.service';
 import * as _ from 'underscore';
- 
+import { NgStyle } from '@angular/common';
 import { PagerService } from './services/pagination.service'
 
 @Component({
@@ -19,6 +19,7 @@ export class FarmComponent implements OnInit {
     check: boolean = true;
     pager:any = {};
     pageFruits: any[];
+    filterValue:string;
 
     ngOnInit() {
         // xuất ra màn hình những cái đã lưu trữ stogate
@@ -31,15 +32,16 @@ export class FarmComponent implements OnInit {
         this.setPage(1);
     }
     constructor(private router: Router, private loginService: LoginService, private _appservice: AppService, private pagerService: PagerService) {
-        this.availableProducts.push(new Product(0, 'Apple', 15, '', 15, 20, ''));
-        this.availableProducts.push(new Product(1, 'Orange', 1, '', 20, 15, ''));
-        this.availableProducts.push(new Product(2, 'Lemon', 5, '', 30, 30, ''));
-        this.availableProducts.push(new Product(3, 'Dragon fruit', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'Kiwi', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'Coconut', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'Mango', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'Longan', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'Strawberry', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(0, 'APPLE', 15, '', 15, 20, ''));
+        this.availableProducts.push(new Product(1, 'ORANGE', 1, '', 20, 15, ''));
+        this.availableProducts.push(new Product(2, 'LEMON', 5, '', 30, 30, ''));
+        this.availableProducts.push(new Product(3, 'DRANGON FRUIT', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'KIWI', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'COCONUT', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'MANGO', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'LONGAN', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'STRAWBERRY', 4, '', 30, 5, ''));
+        this.availableProducts.push(new Product(3, 'CHERRY', 4, '', 30, 100, ''));
         //nhan data khi ng choi mua 1 square tu 'shop' component
         _appservice.quantitySquare_shop$.subscribe(data => {
             this.maxTreesAllowedToGrow += data; this.check = true;
@@ -108,6 +110,6 @@ export class FarmComponent implements OnInit {
 
 }
 
-class Product {
+export class Product {
     constructor(public id: number, public name: string, public quantity: number, public date, public exp: number, public reward: number, public state: string) { }
 }

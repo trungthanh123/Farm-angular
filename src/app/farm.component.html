@@ -14,7 +14,12 @@
       <div class="panel panel-success warehouse">
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
-          <div *ngFor="let product of pageFruits" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0" [dragData]="product"
+          <div class="group_input_filter">
+            <input type="text" name="filterValue" [(ngModel)]="filterValue" class="filter-input" placeholder="Search">
+            <span class="bar"></span>
+          </div>
+          
+          <div *ngFor="let product of pageFruits | filter:filterValue" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0" [dragData]="product"
             (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
             <div class="panel-body">
               <div [hidden]="product.quantity===0">{{product.name}}<br>(available: {{product.quantity}})</div>
@@ -32,7 +37,7 @@
           </div>
         </div>
       </div>
-      <my-shop (outputShop)="getValueFromShop($event)"></my-shop>
+      
     </div>
     <div class="col-md-8">
       <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"
@@ -55,6 +60,7 @@
       <button type="button" name="button" class="btn btn-success" (click)="logOut()">Log out</button>
       <br>
       <img dnd-draggable src="assets/img/sprinkler.png" alt="">
+      <my-shop (outputShop)="getValueFromShop($event)"></my-shop>
     </div>
 
   </div>
