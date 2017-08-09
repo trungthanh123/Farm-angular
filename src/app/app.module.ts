@@ -8,6 +8,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProgressbarModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import { MdInputModule, MdButtonModule, MdDialogModule } from "@angular/material";
+
 import { AppComponent } from './app.component';
 import { FarmComponent } from './farm.component';
 import { RecycleMultiSortableComponent } from './test.component';
@@ -16,27 +19,33 @@ import { LevelUserComponent } from './level-user/level.component';
 import { ShopComponent } from './shop/shop.component';
 import { MoneyComponent } from './money/money.component';
 
+
+
 import { AppService } from './services/app.service';
 import { LoginService } from './services/login.service';
 import { CheckLogin } from './guards/check-login.guard';
 import { TreeService } from './services/tree.service';
-import {ShoppingService} from './services/shopping.service'
+import { ShoppingService } from './services/shopping.service';
+
+
+import 'hammerjs';
 
 const appRoutes: Routes = [
   { path: '', component: SignUpComponent },
-  { path: 'my-farm', component: FarmComponent, },
+  { path: 'my-farm', component: FarmComponent, canActivate: [CheckLogin] },
 ];
 // canActivate: [CheckLogin]
 @NgModule({
   declarations: [
+    
     AppComponent,
     FarmComponent,
     RecycleMultiSortableComponent,
     SignUpComponent,
-    LevelUserComponent, ShopComponent, MoneyComponent
+    LevelUserComponent, ShopComponent, MoneyComponent, 
   ],
   imports: [
-
+   
     BrowserModule,
     DndModule.forRoot(),
     ButtonsModule.forRoot(),
@@ -47,9 +56,11 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     ProgressbarModule.forRoot(),
-    HttpModule
+    HttpModule,
+    
   ],
   providers: [LoginService, CheckLogin, AppService, TreeService, ShoppingService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

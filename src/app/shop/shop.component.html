@@ -51,9 +51,10 @@
             <div class="col-md-2">
               <div class="form-group product">
                 <label for="usr" class="product_name">Square</label>
-                <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfKiwis" [(ngModel)]="quantity_Square">
+                <input disabled type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfKiwis" [(ngModel)]="quantity_Square">
                 <h4 class="product_price">{{price_Square * quantity_Square}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
+              <button (click)="unlockASquare()">Unlock</button>
             </div>
           </div>
           <button class="btn btn-primary btn-lg" type="submit" (click)="parentModal.hide()" style="display:block; margin:auto;">Buy</button>

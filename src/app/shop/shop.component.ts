@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { ShoppingService } from '../services/shopping.service';
-import { TreeService} from '../services/tree.service'
+import { TreeService } from '../services/tree.service'
 @Component({
   selector: 'my-shop',
   templateUrl: './shop.component.html',
@@ -18,58 +18,80 @@ export class ShopComponent {
   quantity_Lemon: number = 0;
   quantity_Dragon: number = 0;
   quantity_Coconut: number = 0;
-  quantity_Square: number = 0;
-  price_Apple = 5;
-  price_Orange = 10;
-  price_Lemon = 8;
-  price_Dragon = 6;
+
+  price_Apple = 50;
+  price_Orange = 150;
+  price_Lemon = 250;
+  price_Dragon = 100;
   price_Coconut = 7;
+
   price_Square = 500;
+  quantity_Square: number = 1;
 
   constructor(private appService: AppService, private _shoppingService: ShoppingService, private _treeService: TreeService) {
-    //lắng nghe câu trả lời từ 'money' component (service)
+    //lắng nghe câu trả lời từ 'farm' component (service)
     appService.money$.subscribe(data => {
       this.currentMoney = data;
-
-
     });
+  }
+  unlockASquare() {
+    if (this.currentMoney >= this.price_Square) {
+      this._treeService.API_buySquare().subscribe(res => {
+        if (res.status === 200) {
+          this.outputShop.emit(this.quantity_Square);
+
+          // this.currentMoney -= this.price_Square;
+          // this.appService.shopData(this.currentMoney);
+        }
+      })
+    }
   }
 
   buy(form) {
-    let data: any = { "TenCay": '', "SoLuong": '', "token": '' };
-    if (this.quantity_Apples != 0)
-    { data.TenCay = "apple"; data.SoLuong = this.quantity_Apples; }
-    else if (this.quantity_Orange != 0)
-    { data.TenCay = "orange"; data.SoLuong = this.quantity_Orange; }
-    else if (this.quantity_Lemon != 0)
-    { data.TenCay = "lemon"; data.SoLuong = this.quantity_Lemon; }
-    else if (this.quantity_Dragon != 0)
-    { data.TenCay = "dragon-fruit"; data.SoLuong = this.quantity_Dragon; }
-    //API service shopping
-    this._shoppingService.API_Shopping(data).subscribe(res => console.log(res))
-    //this._treeService.API_LayCayTrong
-
-
+    let data = {
+      "tree":
+      [
+        { "TenCay": "apple", "SoLuong": this.quantity_Apples },
+        { "TenCay": "orange", "SoLuong": this.quantity_Orange },
+        { "TenCay": "lemon", "SoLuong": this.quantity_Lemon },
+        { "TenCay": "dragon-fruit", "SoLuong": this.quantity_Dragon }
+      ],
+      "token": ""
+    }
 
     this.sum = (this.quantity_Apples * this.price_Apple) + (this.quantity_Orange * this.price_Orange) +
-      (this.quantity_Lemon * this.price_Lemon) + (this.quantity_Dragon * this.price_Dragon) + (this.quantity_Square * this.price_Square);
+      (this.quantity_Lemon * this.price_Lemon) + (this.quantity_Dragon * this.price_Dragon);
     // nếu số tiền để mua < số tiền hiện có => dữ liệu từ 'output' sẽ đc chuyển đi
+    // if (this.sum <= this.currentMoney) {
+    //   this.currentMoney -= this.sum;
+    //   this.appService.quantitySquare_Shop(this.quantity_Square);
+    //
+    //   //Sau khi thanh toán xong, truyền 'currentMoney' sang cho 'money' component (service)
+    //   this.appService.shopData(this.currentMoney);
+    //   //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)
+    //   this.outputShop.emit(form.value);
+    // }
+
     if (this.sum <= this.currentMoney) {
-      this.currentMoney -= this.sum;
-      this.appService.quantitySquare_Shop(this.quantity_Square);
-      //Sau khi thanh toán xong, truyền 'currentMoney' sang cho 'money' component (service)
-      this.appService.shopData(this.currentMoney);
+      this._shoppingService.API_Shopping(data).subscribe(res => {
+        if (res.status === 200) {
+          this.outputShop.emit(form.value);
+          this.currentMoney -= this.sum;
+          this.appService.shopData(this.currentMoney);
+          this.resetForm()
+        }
+      });
       //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)
-      this.outputShop.emit(form.value);
+      // this.outputShop.emit(form.value);
     }
-    else alert("You don't have enough money")
+    else alert("You don't have enough money");
+
+  }
+  resetForm() {
     this.quantity_Apples = 0;
     this.quantity_Dragon = 0;
     this.quantity_Lemon = 0;
     this.quantity_Orange = 0;
-    this.quantity_Square = 0;
-    // console.log(form.value);
-    // console.log(form.controls['quantity-apple'].value);
-    // console.log(form.controls['quantity-orange'].value);
+    this.quantity_Square = 1;
   }
 }

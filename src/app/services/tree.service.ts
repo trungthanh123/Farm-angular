@@ -6,20 +6,37 @@ export class TreeService {
 
   token = '';
   constructor(private _http: Http) {
-    this.token = localStorage.getItem("token");
+    // this.token = localStorage.getItem("token");
+  }
+  getToken() {
+    return this.token = localStorage.getItem("token");
   }
   API_CayDaTrong(): Observable<any> {
-    return this._http.post('http://103.48.191.254/api/tree/data', { "token": this.token })
+    return this._http.post('http://103.48.191.254/api/tree/data', { "token": this.getToken() })
       .map(data => data.json())
   }
-  API_TrongCay(data) {
-    data.token = this.token;
-    this._http.post('http://103.48.191.254/api/tree/plan', data)
+  API_TrongCay(data): Observable<any> {
+    data.token = this.getToken();
+    return this._http.post('http://103.48.191.254/api/tree/plan', data)
       .map(data => data.json())
-      .subscribe(res => console.log("trongcay"+res))
   }
   API_LayCayTrong(): Observable<any> {
-    return this._http.post('http://103.48.191.254/api/tree/detail', { "token": this.token })
-      .map(data => data.json())
+    return this._http.post('http://103.48.191.254/api/tree/detail', { "token": this.getToken() })
+      .map((data) => {
+        return data.json();
+      })
+  }
+  API_MaxTree_TreesPlanted(): Observable<any> {
+    return this._http.post('http://103.48.191.254/api/tree/show', { "token": this.getToken() }).map(data => data.json())
+  }
+  API_HarvestTree(data): Observable<any> {
+    data.token = this.getToken();
+    return this._http.post('http://103.48.191.254/api/tree/test', data).map(data => data.json())
+  }
+  API_signUp(data):Observable<any> {
+    return this._http.post('http://103.48.191.254/api/tree/signup', data).map(res => res.json())
+  }
+  API_buySquare():Observable<any> {
+    return this._http.post('http://103.48.191.254/api/tree/buyland', {"token": this.getToken()}).map(res => res.json())
   }
 }

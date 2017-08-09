@@ -1,4 +1,6 @@
-
+.cursor {
+    cursor: no-drop;
+}
 .square {
     float: left;
     /*line-height: 16vh;*/
@@ -41,11 +43,18 @@
   border: 1px dashed #000;
 }
 .theGround {
-    
+    cursor: default !important;
     height: 83vh;
 }
 .glyphicon-grain {
     color: green;
+    font-size: 20px;
+    border-radius: 30%;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+    
+}
+.glyphicon-grain:hover {
+    cursor: pointer;
 }
 .product {
     width: auto;

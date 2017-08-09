@@ -5,8 +5,9 @@
         <level-user #level></level-user>
       </div>
       <div class="col-md-3  pull-right">
-        <money #money></money>
+        <h4>{{my_money}}<span class="glyphicon glyphicon-gbp"></span></h4>
       </div>
+      
 
   </div>
   <div class="row">
@@ -17,10 +18,10 @@
           <div *ngFor="let product of fruits" class="panel panel-default" dnd-draggable 
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <!--[dragEnabled]="product.quantity>0"-->
-            <div class="panel-body">
+            <div class="panel-body" [ngClass]="{cursor: product.SoLuong===0}" >
               <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(available: {{product.SoLuong}})</div>
               <div [hidden]="product.SoLuong>0">
-                <del>{{product.TenCay}}</del><br>(NOT available)</div>
+                <del>{{product.TenCay | uppercase}}</del><br>(NOT available)</div>
             </div>
           </div>
         </div>
@@ -30,11 +31,11 @@
     <div class="col-md-8">
       <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"
         class="panel panel-info theGround">
-        <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
+        <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
         <div class="panel-body">
           <div *ngFor="let product of cayDaTrong; let i = index" class="panel panel-default square" [ngClass]="getClassName(product.TenCay)">
-            <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)" ></span>
-            <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)" (click)="level.AddPercents(product.exp)"></span>
+            <span *ngIf="product.status === 'Perfect'"  class="glyphicon glyphicon-grain" style="float:right;margin:5px;" (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc)"></span>
+            <!--<span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(reward)" style="float:left;margin:5px;" (click)="destroyaPlant(product.id)" (click)="level.AddPercents(product.exp)"></span>-->
             <div class="panel-body show-info">
               {{product.TenCay | uppercase}}
               <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>

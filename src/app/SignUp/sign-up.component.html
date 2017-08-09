@@ -1,45 +1,77 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <button type="button" name="button" class="btn btn-success pull-right" >Sign up</button>
-      <button type="button" class="btn btn-primary pull-right" (click)="staticModal.show()" style="margin-right:10px;">Sign in</button>
+      <button type="button" class="btn btn-success pull-right" (click)="staticModal.show()">Sign Up</button>
+      
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-4 col-md-push-4" style="border: 1px solid #CCCCCC; border-radius:5px; padding-bottom: 20px; margin-top:50px">
+      <h3 style="text-align:center;  padding-bottom:5px">Sign In</h3>
+      <form>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="name" class="form-control " required minlength="4" maxlength="24" name="name" ngModel #name="ngModel">
+          <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+            <div [hidden]="!name.errors.required">Name is required</div>
+            <div [hidden]="!name.errors.minlength">Username has at least 4 characters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
+          <input type="password" class="form-control " id="pwd" #password>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox"> Remember me</label>
+        </div>
+        <div class="alert alert-danger" [hidden]="messageLogin==''">{{messageLogin}}</div>
+        <button type="submit" class="btn btn-primary" style="display:block; width:100%" (click)="vadidateForm(name.value, password.value)">Sign In</button>
+      </form>
+    </div>
+  </div>
+
 </div>
 
-<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center">Sign in</h4>
+        <h4 class="modal-title text-center">Sign Up</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-
-        <form>
+        <form #f="ngForm" (ngSubmit)="signUp(f.value)" >
           <div class="form-group">
+            
             <label for="email">Email</label>
-            <input type="email" id="name" class="form-control " required minlength="4" maxlength="24" name="name" ngModel #name="ngModel">
-            <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-              <div [hidden]="!name.errors.required">Name is required</div>
-              <div [hidden]="!name.errors.minlength">Username has at least 4 characters</div>
+            <input type="email" id="name" class="form-control " required minlength="4" maxlength="24" name="nameSignUp" [(ngModel)]="inputEmail" #nameSignUp="ngModel">
+            <div *ngIf="nameSignUp.errors && (nameSignUp.dirty || nameSignUp.touched)" class="alert alert-danger">
+              <div [hidden]="!nameSignUp.errors.required">Email is required</div>
+              <div [hidden]="!nameSignUp.errors.minlength">Username has at least 4 characters</div>
             </div>
           </div>
           <div class="form-group">
-            <label for="pwd" >Password</label>
-            <input type="password" class="form-control " id="pwd" #password>
+            <label for="pwd">Password</label>
+            <input type="password" class="form-control" required id="pwd" name="passwordSignUp" #passwordSignUp="ngModel" [(ngModel)]="inputPassWord">
+            <div *ngIf="passwordSignUp.errors && (passwordSignUp.dirty || passwordSignUp.touched)" class="alert alert-danger">
+              <div [hidden]="!passwordSignUp.errors.required">Password is required</div>
+            </div>
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
+          <div class="form-group">
+            <label for="pwd">Confirm Password</label>
+            <input type="password" class="form-control" required id="pwd" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="inputConfirmPassW">
+            <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+              <div [hidden]="!confirmPassword.errors.required">Password Confirm is required</div>
+            </div>
           </div>
-          <div class="alert alert-danger" [hidden]="message==''">{{message}}</div>
-          <button type="submit" class="btn btn-default" (click)="vadidateForm(name.value, password.value)">Submit</button>
+          <div [ngClass]="{'alert': true, 'alert-danger': !(messageSignup==='singup done!'), 'alert-success': messageSignup==='singup done!'}"  [hidden]="messageSignup==''">{{messageSignup}}</div>
+          <button type="submit" class="btn btn-primary" style="display:block; width:100%" >Sign up</button> 
         </form>
-
       </div>
     </div>
   </div>
 </div>
-
