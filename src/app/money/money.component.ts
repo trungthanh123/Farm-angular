@@ -5,7 +5,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'money',
   template: `
-    <h4 [ngClass]="{animated: checkClass, bounce: checkClass}">{{your_money}}<span class="glyphicon glyphicon-gbp"></span></h4>
+    <h4 [ngClass]="{animated: checkClass, flash: checkClass}">{{your_money}}<span class="glyphicon glyphicon-gbp"></span></h4>
   `,
   styleUrls: ['../app.component.css']
 })

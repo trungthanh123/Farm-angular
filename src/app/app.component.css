@@ -115,3 +115,10 @@ group_input_filter {
 .filter-input:focus ~ .bar:before, input:focus ~ .bar:after {
   width:50%;
 }
+.form-shop {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.red {
+  color: red;
+}

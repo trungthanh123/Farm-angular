@@ -44,7 +44,7 @@
         class="panel panel-info theGround">
         <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
         <div class="panel-body">
-          <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square">
+          <div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" [ngClass]="{animated:true, tada:true}" >
             <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
             <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)"
               (click)="level.AddPercents(product.exp)"></span>
@@ -59,7 +59,7 @@
     <div class="col-md-1">
       <button type="button" name="button" class="btn btn-success" (click)="logOut()">Log out</button>
       <br>
-      <img dnd-draggable src="assets/img/sprinkler.png" alt="">
+      <img dnd-draggable src="assets/img/sprinkler.png" alt="" >
       <my-shop (outputShop)="getValueFromShop($event)"></my-shop>
     </div>
 

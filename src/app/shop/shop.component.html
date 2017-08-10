@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-primary btn-lg" (click)="parentModal.show()">Shop</button>
 
-<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade animated bounceInLeft" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
     <div class="modal-content ">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Shop</h4>
@@ -11,7 +11,7 @@
                 </button>
       </div>
       <div class="modal-body">
-        <form #Form="ngForm" (ngSubmit)="buy(Form)">
+        <form #Form="ngForm" (ngSubmit)="buy(Form)" class="form-shop">
           <div class="col-md-12">
             <div class="col-md-2">
               <div class="form-group product">

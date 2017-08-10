@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { AppService } from './services/app.service';
 import * as _ from 'underscore';
-import { NgStyle } from '@angular/common';
+import { NgStyle, NgClass } from '@angular/common';
 import { PagerService } from './services/pagination.service'
 
 @Component({
@@ -20,7 +20,7 @@ export class FarmComponent implements OnInit {
     pager:any = {};
     pageFruits: any[];
     filterValue:string;
-
+    // checkClassForTree:boolean = false;
     ngOnInit() {
         // xuất ra màn hình những cái đã lưu trữ stogate
         // if(localStorage.getItem("planted-storage") != null)
@@ -83,14 +83,21 @@ export class FarmComponent implements OnInit {
         }
         return count;
     }
-
+  
     exp: number = 0;
     destroyaPlant(index) {
         this.treePlanted--;
         if (this.treePlanted < this.maxTreesAllowedToGrow) this.check = true;
         //this.exp = this.shoppingBasket[index].exp;
         //console.log(this.exp);
-        this.shoppingBasket.splice(index, 1);
+        
+      
+        
+     
+       
+       
+            this.shoppingBasket.splice(index, 1);
+      
     }
 
     logOut() {
@@ -107,7 +114,6 @@ export class FarmComponent implements OnInit {
         this.availableProducts[2].quantity += Number(event.numberOfLemons);
         this.availableProducts[3].quantity += Number(event.numberOfDragons);
     }
-
 }
 
 export class Product {
