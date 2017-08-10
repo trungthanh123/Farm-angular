@@ -14,8 +14,10 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.css']
 })
 export class FarmComponent implements OnInit {
+    checkClassForWareHouse = [0,1];
     // public reward: number = 0;
     // availableProducts: Array<Product> = [];
+    checkClass: boolean = false;
     cayDaTrong = [];
     treesPlanted: number; maxTreesAllowedToGrow: number;
     check: boolean = true;
@@ -41,7 +43,7 @@ export class FarmComponent implements OnInit {
             this.maxTreesAllowedToGrow = res.SoCayToiDa;
             if (res.CayDaTrong >= res.SoCayToiDa) this.check = false;
         });
-        
+
         this._treeService.API_CayDaTrong().subscribe(res => {
             this.cayDaTrong = res.result;
             this.my_money = res.Diem;
@@ -57,7 +59,13 @@ export class FarmComponent implements OnInit {
             this.fruits = res.result;
         });
         //sau khi thanh toán tiền bên shopComponent thì số tiền còn lại được gửi lại farmComponent để cập nhật
-        this._appService.shop$.subscribe(res => this.my_money = res);
+        this._appService.shop$.subscribe(res => {
+            this.my_money = res;
+            this.checkClass = true;
+            setTimeout(() => {
+                this.checkClass = false;
+            }, 2000);
+        });
     }
     orderedProduct($event: any) {
 
@@ -86,7 +94,7 @@ export class FarmComponent implements OnInit {
                 })
             }
         });
-        
+
     }
 
     total(): number {
@@ -108,9 +116,9 @@ export class FarmComponent implements OnInit {
                 // this.check = true;
                 // this.cayDaTrong.splice(index, 1);
                 // this.my_exp = res.KinhNgiem;
-
+                setTimeout(() => {
                 // nếu không gọi API thì sẽ đụng độ, view không có số tiền thật từ server => mua đồ trong shop k đồng bộ => gọi API chỗ này
-                this._treeService.API_CayDaTrong().subscribe(res => {
+                    this._treeService.API_CayDaTrong().subscribe(res => {
                     this.cayDaTrong = res.result;
                     this.my_money = res.Diem;
                     this.my_exp = res.KinhNgiem;
@@ -119,10 +127,13 @@ export class FarmComponent implements OnInit {
                     this.treesPlanted = res.cayDaTrong;
                     this.check = true;
                 })
+                },700)
+                
+                
             }
         })
 
-        
+
     }
 
     logOut() {
@@ -135,17 +146,26 @@ export class FarmComponent implements OnInit {
     // public checkModalShop = true;
     getValueFromShop(dataFromShop) {
         // this.checkModalShop = false;
-
+        
+        this.checkClassForWareHouse = dataFromShop.n
         // nhận mở khóa ô đất từ SHOP com     
         if (typeof dataFromShop === "number")
             this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
                 this.maxTreesAllowedToGrow = res.SoCayToiDa;
                 this.check = true;
+                this.checkClass = true;
+                setTimeout(() => {
+                    this.checkClass = false;
+                }, 2000);
             })
-        else {
+        else if(typeof dataFromShop.form === "object"){
             // nhận số lượng tất cả cây trông đã mua từ SHOP com
             this._treeService.API_LayCayTrong().subscribe(res => {
-                this.fruits = res.result; //console.log(res.result);
+                this.fruits = res.result;
+                this.checkClass = true;
+                setTimeout(() => {
+                    this.checkClass = false;
+                }, 2000);
             })
         }
         this._treeService.API_CayDaTrong().subscribe(res => this.my_money = res.Diem);

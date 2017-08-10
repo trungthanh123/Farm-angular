@@ -12,3 +12,21 @@
 <progressbar [max]="max" [value]="dynamic">
   <span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span>
 </progressbar>-->
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" [ngClass]="{'animated fadeInRight': true}" >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Level up: {{level}}!!!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This is static modal, backdrop click will not close it.
+        Click <b>&times;</b> to close modal.
+      </div>
+    </div>
+  </div>
+</div>
+<!--class="animated fadeInUp"-->

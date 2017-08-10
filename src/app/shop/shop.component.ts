@@ -73,12 +73,20 @@ export class ShopComponent {
     // }
 
     if (this.sum <= this.currentMoney) {
+      let n=[];
+      if(this.quantity_Apples != 0) n[0] = 0;
+      if(this.quantity_Orange != 0) n[1] = 1;
+      if(this.quantity_Lemon != 0) n[2] = 2;
+      if(this.quantity_Dragon != 0) n[3] = 3;
+      
+      let dataFromShop = {'form': form.value, 'n': n}
       this._shoppingService.API_Shopping(data).subscribe(res => {
         if (res.status === 200) {
-          this.outputShop.emit(form.value);
+          this.outputShop.emit(dataFromShop);
           this.currentMoney -= this.sum;
           this.appService.shopData(this.currentMoney);
-          this.resetForm()
+          this.resetForm();
+          n =[];
         }
       });
       //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)

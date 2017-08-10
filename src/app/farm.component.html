@@ -5,7 +5,7 @@
         <level-user #level></level-user>
       </div>
       <div class="col-md-3  pull-right">
-        <h4>{{my_money}}<span class="glyphicon glyphicon-gbp"></span></h4>
+        <h3 [ngClass]="{animated: checkClass, flash: checkClass}">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></h3>
       </div>
       
 
@@ -15,11 +15,11 @@
       <div class="panel panel-success">
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
-          <div *ngFor="let product of fruits" class="panel panel-default" dnd-draggable 
+          <div *ngFor="let product of fruits; let i = index" class="panel panel-default" dnd-draggable [ngClass]="{animated: checkClass, pulse: i === checkClassForWareHouse[i]}"
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <!--[dragEnabled]="product.quantity>0"-->
             <div class="panel-body" [ngClass]="{cursor: product.SoLuong===0}" >
-              <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(available: {{product.SoLuong}})</div>
+              <div [hidden]="product.SoLuong===0" >{{product.TenCay | uppercase}}<br>(available: {{product.SoLuong}})</div>
               <div [hidden]="product.SoLuong>0">
                 <del>{{product.TenCay | uppercase}}</del><br>(NOT available)</div>
             </div>
@@ -31,10 +31,11 @@
     <div class="col-md-8">
       <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"
         class="panel panel-info theGround">
-        <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
+        <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right" [ngClass]="{'animated pulse': checkClass}" >Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
         <div class="panel-body">
-          <div *ngFor="let product of cayDaTrong; let i = index" class="panel panel-default square" [ngClass]="getClassName(product.TenCay)">
-            <span *ngIf="product.status === 'Perfect'"  class="glyphicon glyphicon-grain" style="float:right;margin:5px;" (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc)"></span>
+          
+          <div *ngFor="let product of cayDaTrong; let i = index" class="panel panel-default square"  [ngClass]="{animated: true, bounceOut: location === product.Location}" [ngClass]="getClassName(product.TenCay)"> 
+            <span *ngIf="product.status === 'Perfect'"  class="glyphicon glyphicon-grain" style="float:right;margin:5px;" (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
             <!--<span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(reward)" style="float:left;margin:5px;" (click)="destroyaPlant(product.id)" (click)="level.AddPercents(product.exp)"></span>-->
             <div class="panel-body show-info">
               {{product.TenCay | uppercase}}

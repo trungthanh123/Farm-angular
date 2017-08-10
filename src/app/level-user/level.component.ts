@@ -1,11 +1,14 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { AppService } from "../services/app.service";
+import { ModalDirective } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'level-user',
   templateUrl: './level.component.html',
 
 })
 export class LevelUserComponent {
+  @ViewChild('staticModal') public staticModal: ModalDirective;
   public max: number = 100;
   exp:number;
   public dynamic: number = 0;
@@ -26,7 +29,7 @@ export class LevelUserComponent {
   }
   //xem lai ham nay
   public AddPercents(exp: number) {
-    console.log("exp from Farm:" + exp);
+    
     //this.dynamic = this.dynamic + exp;
     let type: string;
     
@@ -50,10 +53,16 @@ export class LevelUserComponent {
     this.type = type;
   }
   public addExp(exp:number) {
+    let checkClass = false;
+    let levelTemp = this.level;
     this.level = 0;
     this.max = 100;
     this.exp += exp;
     this.AddPercents(this.exp);
+    if(this.level > levelTemp)
+      {this.staticModal.show();
+      checkClass = true;}
+      
   }
 
 }
