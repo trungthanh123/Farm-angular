@@ -1,10 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { RequestOptions, Headers } from "@angular/http";
 import { Http } from '@angular/http';
 import { AppService } from '../services/app.service';
-import { NgForm } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TreeService } from "../services/tree.service";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 @Component({
@@ -14,6 +14,14 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class SignUpComponent {
   @ViewChild('staticModal') public staticModal: ModalDirective;
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    let x = event.keyCode;
+    if (x === 27) {
+      this.setMessage();
+      this.signupForm.reset();
+    }
+  }
   public token: string;
   public messageLogin = '';
   public messageSignup = '';
@@ -26,27 +34,32 @@ export class SignUpComponent {
     private http: Http,
     private _appService: AppService,
     private _treeService: TreeService,
-
+    private formBuilder: FormBuilder
   ) { }
-
-  signUp(f) {
-    if (f.passwordSignUp !== f.confirmPassword) {
+  public signupForm: FormGroup;
+  ngOnInit() {
+    this.signupForm = this.formBuilder.group({
+      emailSignup: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
+    });
+  }
+  setMessage() {
+    this.messageSignup = '';
+  }
+  signUp() {
+    let value = this.signupForm.value;
+    if (value.password !== value.passwordConfirm) {
       this.messageSignup = "Password and Password Confirm don't matched";
     }
-    else if (f.passwordSignUp === '' || f.confirmPassword === '' || f.nameSignUp === '') {
-      this.messageSignup = "Username and Password are required";
-    }
     else {
-      let data = { "userName": f.nameSignUp, "passWord": f.passwordSignUp }
+      let data = { "userName": value.emailSignup, "passWord": value.passwordConfirm };
       this._treeService.API_signUp(data).subscribe(res => {
         if (res.status === 200) {
           this.messageSignup = res.message;
           setTimeout(() => {
-            this.staticModal.hide();
-            this.messageSignup = '';
-            this.inputEmail = '';
-            this.inputPassWord = '';
-            this.inputConfirmPassW = '';
+            this.staticModal.hide()
+            this.signupForm.reset();
           }, 500)
         }
         if (res.status === 400) {
@@ -54,9 +67,8 @@ export class SignUpComponent {
         }
       })
     }
-
   }
-
+  
   vadidateForm(name, password) {
     localStorage.setItem("username", name);
     let data = {

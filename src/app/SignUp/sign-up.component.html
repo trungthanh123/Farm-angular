@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-md-12">
       <button type="button" class="btn btn-success pull-right" (click)="staticModal.show()">Sign Up</button>
-      
     </div>
   </div>
 
@@ -39,37 +38,37 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center">Sign Up</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide(); f.reset(); setMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #f="ngForm" (ngSubmit)="signUp(f.value)" >
+        <form #f="ngForm" (ngSubmit)="signUp()" [formGroup]="signupForm">
           <div class="form-group">
-            
             <label for="email">Email</label>
-            <input type="email" id="name" class="form-control " required minlength="4" maxlength="24" name="nameSignUp" [(ngModel)]="inputEmail" #nameSignUp="ngModel">
-            <div *ngIf="nameSignUp.errors && (nameSignUp.dirty || nameSignUp.touched)" class="alert alert-danger">
-              <div [hidden]="!nameSignUp.errors.required">Email is required</div>
-              <div [hidden]="!nameSignUp.errors.minlength">Username has at least 4 characters</div>
+            <input type="email" id="name" class="form-control " formControlName="emailSignup">
+            <div *ngIf="signupForm.get('emailSignup').errors && (signupForm.get('emailSignup').dirty || signupForm.get('emailSignup').touched)" class="alert alert-danger">
+              <div [hidden]="!signupForm.get('emailSignup').errors.required">Email is required</div>
+              <div [hidden]="!signupForm.get('emailSignup').errors.minlength">Username has at least 4 characters</div>
             </div>
           </div>
           <div class="form-group">
             <label for="pwd">Password</label>
-            <input type="password" class="form-control" required id="pwd" name="passwordSignUp" #passwordSignUp="ngModel" [(ngModel)]="inputPassWord">
-            <div *ngIf="passwordSignUp.errors && (passwordSignUp.dirty || passwordSignUp.touched)" class="alert alert-danger">
-              <div [hidden]="!passwordSignUp.errors.required">Password is required</div>
+            <input type="password" class="form-control" formControlName="password" >
+            <div *ngIf="signupForm.get('password').errors && (signupForm.get('password').dirty || signupForm.get('password').touched)" class="alert alert-danger">
+              <div [hidden]="!signupForm.get('password').errors.required">Password is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="pwd">Confirm Password</label>
-            <input type="password" class="form-control" required id="pwd" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="inputConfirmPassW">
-            <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
-              <div [hidden]="!confirmPassword.errors.required">Password Confirm is required</div>
+            <input type="password" class="form-control" formControlName="passwordConfirm">
+             <div *ngIf="signupForm.get('passwordConfirm').errors && (signupForm.get('passwordConfirm').dirty || signupForm.get('passwordConfirm').touched)" class="alert alert-danger">
+              <div [hidden]="!signupForm.get('passwordConfirm').errors.required">Confirm Password is required</div>
             </div>
           </div>
-          <div [ngClass]="{'alert': true, 'alert-danger': !(messageSignup==='singup done!'), 'alert-success': messageSignup==='singup done!'}"  [hidden]="messageSignup==''">{{messageSignup}}</div>
-          <button type="submit" class="btn btn-primary" style="display:block; width:100%" >Sign up</button> 
+          <div [ngClass]="{'alert': true, 'alert-danger': !(messageSignup==='singup done!'), 'alert-success': messageSignup==='singup done!'}"
+            [hidden]="messageSignup==''">{{messageSignup}}</div>
+          <button type="submit" class="btn btn-primary" style="display:block; width:100%" [disabled]="!f.valid">Sign up</button>
         </form>
       </div>
     </div>

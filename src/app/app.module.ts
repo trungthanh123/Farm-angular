@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { DndModule } from 'ng2-dnd';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ProgressbarModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import { MdInputModule, MdButtonModule, MdDialogModule } from "@angular/material";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdInputModule, MdButtonModule, MdDialogModule, MdMenuModule } from "@angular/material";
 
 import { AppComponent } from './app.component';
 import { FarmComponent } from './farm.component';
@@ -27,7 +27,6 @@ import { CheckLogin } from './guards/check-login.guard';
 import { TreeService } from './services/tree.service';
 import { ShoppingService } from './services/shopping.service';
 
-
 import 'hammerjs';
 
 const appRoutes: Routes = [
@@ -37,30 +36,30 @@ const appRoutes: Routes = [
 // canActivate: [CheckLogin]
 @NgModule({
   declarations: [
-    
+
     AppComponent,
     FarmComponent,
     RecycleMultiSortableComponent,
     SignUpComponent,
-    LevelUserComponent, ShopComponent, MoneyComponent, 
+    LevelUserComponent, ShopComponent, MoneyComponent,
   ],
   imports: [
-   
+
     BrowserModule,
     DndModule.forRoot(),
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
     ProgressbarModule.forRoot(),
-    HttpModule,
-    
+    HttpModule, BrowserAnimationsModule, MdInputModule, MdMenuModule
+
   ],
   providers: [LoginService, CheckLogin, AppService, TreeService, ShoppingService],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.css']
 })
 export class FarmComponent implements OnInit {
-    checkClassForWareHouse = [0,1];
+    checkClassForWareHouse = [];
     // public reward: number = 0;
     // availableProducts: Array<Product> = [];
     checkClass: boolean = false;
@@ -128,12 +128,8 @@ export class FarmComponent implements OnInit {
                     this.check = true;
                 })
                 },700)
-                
-                
             }
         })
-
-
     }
 
     logOut() {
@@ -146,8 +142,6 @@ export class FarmComponent implements OnInit {
     // public checkModalShop = true;
     getValueFromShop(dataFromShop) {
         // this.checkModalShop = false;
-        
-        this.checkClassForWareHouse = dataFromShop.n
         // nhận mở khóa ô đất từ SHOP com     
         if (typeof dataFromShop === "number")
             this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
@@ -159,6 +153,7 @@ export class FarmComponent implements OnInit {
                 }, 2000);
             })
         else if(typeof dataFromShop.form === "object"){
+            this.checkClassForWareHouse = dataFromShop.n
             // nhận số lượng tất cả cây trông đã mua từ SHOP com
             this._treeService.API_LayCayTrong().subscribe(res => {
                 this.fruits = res.result;
@@ -168,7 +163,12 @@ export class FarmComponent implements OnInit {
                 }, 2000);
             })
         }
-        this._treeService.API_CayDaTrong().subscribe(res => this.my_money = res.Diem);
+        //cập nhật tiền rồi gửi lại cho SHOP com
+        this._treeService.API_CayDaTrong().subscribe(res => {
+            this.my_money = res.Diem;
+            this._appService.moneyData(this.my_money);
+        });
+        
     }
 
     getClassName(name) {
