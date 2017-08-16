@@ -1,4 +1,5 @@
-<button type="button" class="btn btn-primary btn-lg" (click)="parentModal.show()">Shop</button>
+
+<button type="button" class="btn btn-primary btn-lg btn-shop" (click)="parentModal.show()">Shop</button>
 
 <div class="modal fade animated bounceInLeft" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg ">
@@ -15,35 +16,40 @@
           <div class="col-md-12">
             <div class="col-md-2">
               <div class="form-group product">
-                <label for="usr" class="product_name">Apple</label>
+                <img src="assets/fruits/apple.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Apple</label>-->
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfApples" [(ngModel)]="quantity_Apples">
                 <h4 class="product_price">{{price_Apple * quantity_Apples}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group product">
-                <label for="usr" class="product_name">Orange</label>
+                <img src="assets/fruits/orange.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Orange</label>-->
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfOranges" [(ngModel)]="quantity_Orange">
                 <h4 class="product_price">{{price_Orange * quantity_Orange}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group product">
-                <label for="usr" class="product_name">Lemon</label>
+                <img src="assets/fruits/banana.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Lemon</label>-->
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfLemons" [(ngModel)]="quantity_Lemon">
                 <h4 class="product_price">{{price_Lemon * quantity_Lemon}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group product">
-                <label for="usr" class="product_name">Dragon</label>
+                <img src="assets/fruits/grapes.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Dragon</label>-->
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfDragons" [(ngModel)]="quantity_Dragon">
                 <h4 class="product_price">{{price_Dragon * quantity_Dragon}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group product">
-                <label for="usr" class="product_name">Coconut</label>
+                <img src="assets/fruits/strawberry.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Coconut</label>-->
                 <input disabled type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfCoconuts" [(ngModel)]="quantity_Coconut">
                 <h4 class="product_price">{{price_Coconut * quantity_Coconut}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>

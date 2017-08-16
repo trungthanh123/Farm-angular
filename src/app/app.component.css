@@ -5,9 +5,10 @@
   width: 18%;
   margin-right: 10px;
   text-align: center;
+  border: 1px solid #CCCCCC;
 }
 
-.dnd-drag-start {
+/*.dnd-drag-start {
   -moz-transform: scale(0.8);
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
@@ -30,7 +31,7 @@
   transform: scale(0.9);
   opacity: 0.7;
   border: 1px dashed #000;
-}
+}*/
 
 .theGround {
   height: 83vh;
@@ -56,6 +57,12 @@
   margin-top: 15px;
 }
 
+.btn-shop {
+  background: #FFC107;
+  color: black;
+  border: #FFC107;
+}
+
 .product_price {
   border-bottom: 1px solid rgba(136, 136, 136, .6);
   display: inline-block;
@@ -66,18 +73,21 @@
 }
 
 .pagination {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    
-  /*display: table;
-  margin: 0 auto;*/
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
+.pagination:hover {
+  cursor: pointer
+}
+
 .warehouse {
-    position: relative;
-    height: 83vh;
+  position: relative;
+  height: 96vh;
 }
+
 .filter-input {
   display: block;
   margin: 0 auto 10px auto;
@@ -85,40 +95,54 @@
   border-bottom: 1px solid #DDDDDD;
   outline: none;
 }
+
 group_input_filter {
   position: relative;
 }
+
 .bar {
   display: block;
   margin: 0 auto;
-  position:relative; display:block; width:190px;
+  position: relative;
+  display: block;
+  width: 190px;
   top: -9.5px;
 }
-.bar:before, .bar:after 	{
-  content:'';
-  height:2px; 
-  width:0;
-  bottom:1px; 
-  position:absolute;
-  background:#3C763D; 
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
-}
-.bar:before {
-  left:50%;
-}
+
+.bar:before,
 .bar:after {
-  right:50%; 
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #3C763D;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 }
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+
 /* active state */
-.filter-input:focus ~ .bar:before, input:focus ~ .bar:after {
-  width:50%;
+
+.filter-input:focus~.bar:before,
+input:focus~.bar:after {
+  width: 50%;
 }
+
 .form-shop {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
 .red {
   color: red;
 }

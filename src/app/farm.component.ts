@@ -17,9 +17,11 @@ export class FarmComponent implements OnInit {
     shoppingBasket: Array<Product> = [];
     treePlanted = 0; maxTreesAllowedToGrow = 10;
     check: boolean = true;
-    pager:any = {};
+    pager: any = {};
     pageFruits: any[];
-    filterValue:string;
+    filterValue: string;
+
+    check1 = true;
     // checkClassForTree:boolean = false;
     ngOnInit() {
         // xuất ra màn hình những cái đã lưu trữ stogate
@@ -32,16 +34,16 @@ export class FarmComponent implements OnInit {
         this.setPage(1);
     }
     constructor(private router: Router, private loginService: LoginService, private _appservice: AppService, private pagerService: PagerService) {
-        this.availableProducts.push(new Product(0, 'APPLE', 15, '', 15, 20, ''));
-        this.availableProducts.push(new Product(1, 'ORANGE', 1, '', 20, 15, ''));
-        this.availableProducts.push(new Product(2, 'LEMON', 5, '', 30, 30, ''));
-        this.availableProducts.push(new Product(3, 'DRANGON FRUIT', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'KIWI', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'COCONUT', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'MANGO', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'LONGAN', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'STRAWBERRY', 4, '', 30, 5, ''));
-        this.availableProducts.push(new Product(3, 'CHERRY', 4, '', 30, 100, ''));
+        this.availableProducts.push(new Product(0, 'apple', 15, '', 15, 20, '', 0, 'assets/fruits/apple.png'));
+        this.availableProducts.push(new Product(1, 'orange', 1, '', 20, 15, '', 0, 'assets/fruits/orange.png'));
+        this.availableProducts.push(new Product(2, 'banana', 5, '', 30, 30, '', 0, 'assets/fruits/banana.png'));
+        this.availableProducts.push(new Product(3, 'grapes', 4, '', 30, 5, '', 0, 'assets/fruits/grapes.png'));
+        this.availableProducts.push(new Product(3, 'cherry', 4, '', 30, 5, '', 0, 'assets/fruits/cherry.png'));
+        this.availableProducts.push(new Product(3, 'eggplant', 4, '', 30, 5, '', 0, 'assets/fruits/eggplant.png'));
+        this.availableProducts.push(new Product(3, 'pear', 4, '', 30, 5, '', 0, 'assets/fruits/pear.png'));
+        this.availableProducts.push(new Product(3, 'strawberry', 4, '', 30, 5, '', 0, 'assets/fruits/strawberry.png'));
+        this.availableProducts.push(new Product(3, 'tomato', 4, '', 30, 5, '', 0, 'assets/fruits/tomato.png'));
+        // this.availableProducts.push(new Product(3, 'CHERRY', 4, '', 30, 100, ''));
         //nhan data khi ng choi mua 1 square tu 'shop' component
         _appservice.quantitySquare_shop$.subscribe(data => {
             this.maxTreesAllowedToGrow += data; this.check = true;
@@ -64,10 +66,11 @@ export class FarmComponent implements OnInit {
         // localStorage.setItem("plants-storage", JSON.stringify(this.availableProducts));
     }
 
-    addToBasket($event: any) {
+    addToBasket($event: any, location) {
         let newProduct: Product = $event.dragData;
         newProduct.date = new Date();
-        this.shoppingBasket.push(new Product(newProduct.id, newProduct.name, 1, newProduct.date, newProduct.exp, newProduct.reward, newProduct.state));
+        newProduct.location = location;
+        this.shoppingBasket.push(new Product(newProduct.id, newProduct.name, 1, newProduct.date, newProduct.exp, newProduct.reward, newProduct.state, newProduct.location, newProduct.img));
         //stogate cây đã trồng
         // localStorage.setItem("planted-storage", JSON.stringify(this.shoppingBasket));                
         //nếu trồng được 10 cây thì sẽ disable 'drop'
@@ -83,21 +86,16 @@ export class FarmComponent implements OnInit {
         }
         return count;
     }
-  
+
     exp: number = 0;
     destroyaPlant(index) {
         this.treePlanted--;
         if (this.treePlanted < this.maxTreesAllowedToGrow) this.check = true;
         //this.exp = this.shoppingBasket[index].exp;
         //console.log(this.exp);
-        
-      
-        
-     
-       
-       
-            this.shoppingBasket.splice(index, 1);
-      
+        this.check1 = true;
+        this.shoppingBasket.splice(index, 1);
+
     }
 
     logOut() {
@@ -117,5 +115,7 @@ export class FarmComponent implements OnInit {
 }
 
 export class Product {
-    constructor(public id: number, public name: string, public quantity: number, public date, public exp: number, public reward: number, public state: string) { }
+    constructor(public id: number, public name: string, public quantity: number, public date, public exp: number, public reward: number, public state: string, public location,
+        public img: string
+    ) { }
 }

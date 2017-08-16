@@ -6,7 +6,9 @@ import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ProgressbarModule } from 'ngx-bootstrap';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdInputModule} from '@angular/material';
+import {MdProgressSpinnerModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FarmComponent } from './farm.component';
@@ -46,7 +48,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-    ProgressbarModule.forRoot(),
+    ProgressbarModule.forRoot(), BrowserAnimationsModule, MdInputModule, MdProgressSpinnerModule
   ],
   providers: [LoginService, CheckLogin,AppService, PagerService],
   bootstrap: [AppComponent]
