@@ -25,20 +25,15 @@ export class LevelUserComponent {
       this.exp = data;
       this.AddPercents(this.exp);
     });
-    
   }
-  //xem lai ham nay
+
   public AddPercents(exp: number) {
-    
-    //this.dynamic = this.dynamic + exp;
     let type: string;
-    
     while (exp > this.max) {
       exp -= this.max;
       this.level++;
       this.max = this.max + 50 * this.level;
       type = 'danger';
-      //alert("Congratulations! Level Up: " + this.level);
     }
     this.dynamic = exp;
     if (this.dynamic < this.max / 4) {
@@ -52,6 +47,7 @@ export class LevelUserComponent {
     }
     this.type = type;
   }
+
   public addExp(exp:number) {
     let checkClass = false;
     let levelTemp = this.level;

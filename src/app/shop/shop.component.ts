@@ -61,17 +61,7 @@ export class ShopComponent {
 
     this.sum = (this.quantity_Apples * this.price_Apple) + (this.quantity_Orange * this.price_Orange) +
       (this.quantity_Lemon * this.price_Lemon) + (this.quantity_Dragon * this.price_Dragon);
-    // nếu số tiền để mua < số tiền hiện có => dữ liệu từ 'output' sẽ đc chuyển đi
-    // if (this.sum <= this.currentMoney) {
-    //   this.currentMoney -= this.sum;
-    //   this.appService.quantitySquare_Shop(this.quantity_Square);
-    //
-    //   //Sau khi thanh toán xong, truyền 'currentMoney' sang cho 'money' component (service)
-    //   this.appService.shopData(this.currentMoney);
-    //   //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)
-    //   this.outputShop.emit(form.value);
-    // }
-
+    
     if (this.sum <= this.currentMoney) {
       let n = [];
       if (this.quantity_Apples != 0) n[0] = 0;
@@ -89,8 +79,6 @@ export class ShopComponent {
           n = [];
         }
       });
-      //số lượng cây trồng sẽ chuyển qua 'farm' component để cập nhật số lượng cây trong kho (output)
-      // this.outputShop.emit(form.value);
     }
     else alert("You don't have enough money");
 

@@ -14,34 +14,28 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.css']
 })
 export class FarmComponent implements OnInit {
+    isPlanted:Array<boolean> = [true, true, true, true, true, true, true, true, true, true,];
     checkClassForWareHouse = [];
-    // public reward: number = 0;
-    // availableProducts: Array<Product> = [];
     checkClass: boolean = false;
+    isMaxTree: boolean = false;
     cayDaTrong = [];
     treesPlanted: number; maxTreesAllowedToGrow: number;
     check: boolean = true;
     fruits = [];
     my_money: number;
     my_exp: number = 0;
-    Location: number = 0;
+    
     ngOnInit() {
+        
     }
     constructor(private _appService: AppService, private router: Router, private loginService: LoginService, private _treeService: TreeService) {
-        // this.availableProducts.push(new Product(0, 'Apple', 15, '', 15, 20, ''));
-        // this.availableProducts.push(new Product(1, 'Orange', 1, '', 20, 15, ''));
-        // this.availableProducts.push(new Product(2, 'Lemon', 5, '', 30, 30, ''));
-        // this.availableProducts.push(new Product(3, 'Dragon fruit', 4, '', 30, 5, ''));
-
-        //nhan data khi ng choi mua 1 square tu 'shop' component
-        // _appService.quantitySquare_shop$.subscribe(data => {
-        //     this.maxTreesAllowedToGrow += data; this.check = true;
-        // })
-
         this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
             this.treesPlanted = res.CayDaTrong;
             this.maxTreesAllowedToGrow = res.SoCayToiDa;
-            if (res.CayDaTrong >= res.SoCayToiDa) this.check = false;
+            if (res.CayDaTrong >= res.SoCayToiDa) {
+                this.check = false;
+                // this.isMaxTree = true;
+            };
         });
 
         this._treeService.API_CayDaTrong().subscribe(res => {
@@ -50,9 +44,6 @@ export class FarmComponent implements OnInit {
             this.my_exp = res.KinhNgiem;
             this._appService.expFromFarmCom(this.my_exp);
             this._appService.moneyData(this.my_money);
-            _.findLast(this.cayDaTrong, item => {
-                return this.Location = item.Location;
-            });
         });
         //gọi api cây trong kho
         this._treeService.API_LayCayTrong().subscribe(res => {
@@ -70,12 +61,14 @@ export class FarmComponent implements OnInit {
     orderedProduct($event: any) {
 
     }
-    addToBasket($event: any) {
+    addToBasket($event: any, location) {
         let newProduct = $event.dragData;
-        this.Location++;
+        
+        localStorage.setItem("isPlanted", this.isPlanted.toString());
+       
         //this.cayDaTrong.push(newProduct);
         let data = {
-            "TenCay": newProduct.TenCay, "Location": this.Location, "DiemNhanDuoc": newProduct.DiemNhanDuoc,
+            "TenCay": newProduct.TenCay, "Location": location, "DiemNhanDuoc": newProduct.DiemNhanDuoc,
             "KinhNgiemNhanDuoc": newProduct.KinhNgiemNhanDuoc, "ThoiGianTruongThanh": newProduct.ThoiGianTruongThanh, "token": ''
         };
         this._treeService.API_TrongCay(data).subscribe(res => {
@@ -94,7 +87,6 @@ export class FarmComponent implements OnInit {
                 })
             }
         });
-
     }
 
     total(): number {
@@ -111,23 +103,21 @@ export class FarmComponent implements OnInit {
         let data = { "Location": Location, "token": "" };
         this._treeService.API_HarvestTree(data).subscribe(res => {
             if (res.status === 200) {
-                // this.my_money += res.Diem;
-                // this.treesPlanted--;
-                // this.check = true;
-                // this.cayDaTrong.splice(index, 1);
-                // this.my_exp = res.KinhNgiem;
+                //setTimeOut de lam animation
                 setTimeout(() => {
-                // nếu không gọi API thì sẽ đụng độ, view không có số tiền thật từ server => mua đồ trong shop k đồng bộ => gọi API chỗ này
+                    // nếu không gọi API thì sẽ đụng độ, view không có số tiền thật từ server => mua đồ trong shop k đồng bộ => gọi API chỗ này
                     this._treeService.API_CayDaTrong().subscribe(res => {
-                    this.cayDaTrong = res.result;
-                    this.my_money = res.Diem;
-                    this.my_exp = res.KinhNgiem;
-                    //gủi my_money của user qua SHOP com
-                    this._appService.moneyData(this.my_money);
-                    this.treesPlanted = res.cayDaTrong;
-                    this.check = true;
-                })
-                },700)
+                        this.cayDaTrong = res.result;
+                        this.my_money = res.Diem;
+                        this.my_exp = res.KinhNgiem;
+                        //gủi my_money của user qua SHOP com
+                        this._appService.moneyData(this.my_money);
+                        this.treesPlanted = res.cayDaTrong;
+                        this.check = true;
+                        this.isPlanted[Location] = true;
+                        localStorage.setItem("isPlanted", this.isPlanted.toString());
+                    })
+                }, 500)
             }
         })
     }
@@ -139,9 +129,7 @@ export class FarmComponent implements OnInit {
         localStorage.removeItem("token");
     }
 
-    // public checkModalShop = true;
     getValueFromShop(dataFromShop) {
-        // this.checkModalShop = false;
         // nhận mở khóa ô đất từ SHOP com     
         if (typeof dataFromShop === "number")
             this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
@@ -152,7 +140,7 @@ export class FarmComponent implements OnInit {
                     this.checkClass = false;
                 }, 2000);
             })
-        else if(typeof dataFromShop.form === "object"){
+        else if (typeof dataFromShop.form === "object") {
             this.checkClassForWareHouse = dataFromShop.n
             // nhận số lượng tất cả cây trông đã mua từ SHOP com
             this._treeService.API_LayCayTrong().subscribe(res => {
@@ -168,7 +156,11 @@ export class FarmComponent implements OnInit {
             this.my_money = res.Diem;
             this._appService.moneyData(this.my_money);
         });
-        
+
+    }
+    waterTree(location) {
+        //api tuoi nuoc
+        //api /data cap nhat vuon
     }
 
     getClassName(name) {
@@ -182,7 +174,3 @@ export class FarmComponent implements OnInit {
             return 'dragon-fruit';
     }
 }
-
-// class Product {
-//     constructor(public id: number, public name: string, public quantity: number, public date, public exp: number, public reward: number, public state: string) { }
-// }
