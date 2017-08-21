@@ -1,6 +1,18 @@
-<small>Hello!<em> {{username}}</em></small><br>
-<small>Level: <em> {{level}}</em></small>
-<progressbar [type]="type" [animate]="true" [max]="max" [value]="dynamic" type="success" ><b style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</b></progressbar>
+<div class="user">
+  <img src="assets/img/farmer.png" alt="">
+  {{username}}
+</div>
+
+<!--<div style="display: inline">
+  
+  <small>{{username }}</small><br>
+  <small>Level: <em> </em></small>
+</div>-->
+<div class="level">
+  <p>{{level}}</p>
+  <progressbar [type]="type" [animate]="true" [max]="max" [value]="dynamic" type="success"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
+</div>
+
 <!--(change)="AddPercents()"-->
 
 <!--<button type="button" class="btn btn-sm btn-primary" (click)="random()">Randomize</button>-->

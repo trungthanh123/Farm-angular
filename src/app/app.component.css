@@ -1,14 +1,57 @@
 .square {
   float: left;
   line-height: 16vh;
-  height: 20vh;
+  height: 19vh;
   width: 18%;
   margin-right: 10px;
   text-align: center;
   border: 1px solid #CCCCCC;
 }
 
-/*.dnd-drag-start {
+.user {
+  display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+.user img {
+  float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+}
+
+.level p{
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  background: #D9EDF7;
+  color: #31708F;
+  line-height: 35px;
+  text-align: center;
+  margin-top: 7px;
+  width: 35px;
+  height: 35px;
+  z-index: 1;
+  border:  none;
+  border-radius: 50%;
+  float: left;
+}
+.level progressbar {
+  margin: auto;
+  position: absolute;
+  z-index: -1;
+  left: 28px;
+  bottom: -5px;
+  width: 80%; 
+}
+.level progressbar span{
+  position: absolute;
+    display: block;
+    width: 100%;
+}
+.dnd-drag-start {
   -moz-transform: scale(0.8);
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
@@ -31,10 +74,10 @@
   transform: scale(0.9);
   opacity: 0.7;
   border: 1px dashed #000;
-}*/
+}
 
 .theGround {
-  height: 83vh;
+  height: 80vh;
 }
 
 .glyphicon-grain {

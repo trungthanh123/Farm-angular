@@ -1,5 +1,5 @@
 
-<button type="button" class="btn btn-primary btn-lg btn-shop" (click)="parentModal.show()">Shop</button>
+<img src="assets/img/stall.png" alt="" width="150px" height="150px" (click)="parentModal.show()" [ngStyle]="{'cursor': 'pointer'}">
 
 <div class="modal fade animated bounceInLeft" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg ">
@@ -56,11 +56,20 @@
             </div>
             <div class="col-md-2">
               <div class="form-group product">
+                <img src="assets/fruits/cherry.png" alt="" width="70px" height="74px">
+                <!--<label for="usr" class="product_name">Coconut</label>-->
+                <input disabled type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfCoconuts" [(ngModel)]="quantity_Coconut">
+                <h4 class="product_price">{{price_Coconut * quantity_Coconut}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
+              </div>
+            </div>
+
+            <!--<div class="col-md-2">
+              <div class="form-group product">
                 <label for="usr" class="product_name">Square</label>
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfKiwis" [(ngModel)]="quantity_Square">
                 <h4 class="product_price">{{price_Square * quantity_Square}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
-            </div>
+            </div>-->
           </div>
           <button class="btn btn-primary btn-lg" type="submit" (click)="parentModal.hide()" style="display:block; margin:auto;">Buy</button>
         </form>

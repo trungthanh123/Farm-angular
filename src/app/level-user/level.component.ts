@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'level-user',
   templateUrl: './level.component.html',
-
+  styleUrls: ['../app.component.css']
 })
 export class LevelUserComponent {
   public max: number = 100;

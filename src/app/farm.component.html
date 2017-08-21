@@ -9,12 +9,11 @@
             <span class="bar"></span>
           </div>
 
-          <div *ngFor="let product of pageFruits | filter:filterValue" class="panel panel-default" dnd-draggable [dragEnabled]="product.quantity>0"
+          <div *ngFor="let product of pageFruits | filter:filterValue" class="panel panel-default " dnd-draggable [dragEnabled]="product.quantity>0"
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">
             <div class="panel-body">
               <div [hidden]="product.quantity===0"><img src="assets/fruits/{{product.name}}.png" alt="" width="65px" height="68px"> (available: {{product.quantity}})</div>
-              <div [hidden]="product.quantity>0">
-                <del>{{product.name}}</del><br>(NOT available)</div>
+              <div [hidden]="product.quantity>0" [ngStyle]="{'color': 'red', 'cursor': 'no-drop'}"><img src="assets/fruits/{{product.name}}.png" alt="" width="65px" height="68px">(NOT available)</div>
             </div>
           </div>
           <!-- pager -->
@@ -39,43 +38,51 @@
           <money #money></money>
         </div>
       </div>
-      <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"
-        class="panel panel-info theGround">
+      <div class="panel panel-info theGround">
         <div class="panel-heading">The Ground<br>(total: {{total()}})</div>
         <div class="panel-body">
 
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 1, check1 = false)" [dropEnabled]="check1">
             <div *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
               <span *ngIf="product.location === 1" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-              <span *ngIf="product.location === 1" class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" style="float:left;margin:5px;"></span>
+              <span *ngIf="product.location === 1"  (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
               <div class="panel-body" *ngIf="product.location === 1"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
             </div>
           </div>
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 2, check1 = false)" [dropEnabled]="true">
             <div *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
               <span *ngIf="product.location === 2" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-              <span *ngIf="product.location === 2" class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" style="float:left;margin:5px;"></span>
+              <span *ngIf="product.location === 2"  (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
               <div class="panel-body" *ngIf="product.location === 2"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
             </div>
           </div>
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 3, check1 = false)" [dropEnabled]="true">
             <div *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
               <span *ngIf="product.location === 3" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-              <span *ngIf="product.location === 3" class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" style="float:left;margin:5px;"></span>
+              <span *ngIf="product.location === 3"  (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
               <div class="panel-body" *ngIf="product.location === 3"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
             </div>
           </div>
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 4, check1 = false)" [dropEnabled]="true">
             <div *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
               <span *ngIf="product.location === 4" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-              <span *ngIf="product.location === 4" class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" style="float:left;margin:5px;"></span>
+              <span *ngIf="product.location === 4"  (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
               <div class="panel-body" *ngIf="product.location === 4"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
             </div>
           </div>
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 5, check1 = false)" [dropEnabled]="true">
             <div *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
               <span *ngIf="product.location === 5" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-              <span *ngIf="product.location === 5" class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" style="float:left;margin:5px;"></span>
+              <span *ngIf="product.location === 5" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
+              <div class="panel-body" *ngIf="product.location === 5"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
+            </div>
+          </div>
+          <!--mở ô đất-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 5, check1 = false)" [dropEnabled]="false">
+            <img *ngIf="true"  src="assets/img/milestones.png" alt="" width="100px" height="89px">
+            <div [hidden]="true"  *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
+              <span *ngIf="product.location === 5" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
+              <span *ngIf="product.location === 5" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)" ><img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;"></span>
               <div class="panel-body" *ngIf="product.location === 5"><img src="{{product.img}}" alt="" width="65px" height="68px"></div>
             </div>
           </div>
