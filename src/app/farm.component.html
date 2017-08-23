@@ -33,8 +33,7 @@
       <my-shop (outputShop)="getValueFromShop($event)"></my-shop>
     </div>
     <div class="col-md-8">
-      <div dnd-droppable ([ngModel])="check" [dropEnabled]="check" (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"
-        class="panel panel-info theGround">
+      <div class="panel panel-info theGround">
         <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right" [ngClass]="{'animated pulse': checkClass}">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
         <div class="panel-body">
 

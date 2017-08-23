@@ -7,14 +7,13 @@ import { Http } from '@angular/http';
 import { TreeService } from './services/tree.service';
 import * as _ from 'lodash';
 
-
 @Component({
     selector: 'my-farm',
     templateUrl: './farm.component.html',
     styleUrls: ['./app.component.css']
 })
 export class FarmComponent implements OnInit {
-    isPlanted:Array<boolean> = [true, true, true, true, true, true, true, true, true, true,];
+    isPlanted: Array<boolean> = [true, true, true, true, true, true, true, true, true, true,];
     checkClassForWareHouse = [];
     checkClass: boolean = false;
     isMaxTree: boolean = false;
@@ -24,9 +23,9 @@ export class FarmComponent implements OnInit {
     fruits = [];
     my_money: number;
     my_exp: number = 0;
-    
+
     ngOnInit() {
-        
+
     }
     constructor(private _appService: AppService, private router: Router, private loginService: LoginService, private _treeService: TreeService) {
         this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
@@ -44,6 +43,11 @@ export class FarmComponent implements OnInit {
             this.my_exp = res.KinhNgiem;
             this._appService.expFromFarmCom(this.my_exp);
             this._appService.moneyData(this.my_money);
+            //check 1 ô đất không được trồng 2 cây
+            this.cayDaTrong.map((res) => {
+                if (res.Location != null)
+                    this.isPlanted[res.Location] = false;
+            })
         });
         //gọi api cây trong kho
         this._treeService.API_LayCayTrong().subscribe(res => {
@@ -63,9 +67,6 @@ export class FarmComponent implements OnInit {
     }
     addToBasket($event: any, location) {
         let newProduct = $event.dragData;
-        
-        localStorage.setItem("isPlanted", this.isPlanted.toString());
-       
         //this.cayDaTrong.push(newProduct);
         let data = {
             "TenCay": newProduct.TenCay, "Location": location, "DiemNhanDuoc": newProduct.DiemNhanDuoc,
@@ -76,6 +77,11 @@ export class FarmComponent implements OnInit {
                 this._treeService.API_CayDaTrong().subscribe((res) => {
                     this.cayDaTrong = res.result;
                     this.treesPlanted = res.CayDaTrong;
+                    //check 1 ô đất không được trồng 2 cây
+                    this.cayDaTrong.map((res) => {
+                        if (res.Location != null)
+                            this.isPlanted[res.Location] = false;
+                    })
                     //nếu CayDaTrong >= maxTreesAllowedToGrow thì sẽ disable 'drop'
                     if (this.treesPlanted >= this.maxTreesAllowedToGrow) {
                         this.check = false;
@@ -115,7 +121,6 @@ export class FarmComponent implements OnInit {
                         this.treesPlanted = res.cayDaTrong;
                         this.check = true;
                         this.isPlanted[Location] = true;
-                        localStorage.setItem("isPlanted", this.isPlanted.toString());
                     })
                 }, 500)
             }
