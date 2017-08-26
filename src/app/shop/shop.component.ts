@@ -9,7 +9,6 @@ import { TreeService } from '../services/tree.service'
 })
 export class ShopComponent {
   @Output() outputShop = new EventEmitter();
-  name: string;
   sum: number;
   currentMoney: number;
 
@@ -18,33 +17,19 @@ export class ShopComponent {
   quantity_Lemon: number = 0;
   quantity_Dragon: number = 0;
   quantity_Coconut: number = 0;
-
+  quantity_Pear: number = 0;
   price_Apple = 50;
   price_Orange = 150;
   price_Lemon = 250;
   price_Dragon = 100;
-  price_Coconut = 7;
-
-  price_Square = 500;
-  quantity_Square: number = 1;
+  price_Coconut = 300;
+  price_Pear = 350;
 
   constructor(private appService: AppService, private _shoppingService: ShoppingService, private _treeService: TreeService) {
     //lắng nghe câu trả lời từ 'farm' component (service)
     appService.money$.subscribe(data => {
       this.currentMoney = data;
     });
-  }
-  unlockASquare() {
-    if (this.currentMoney >= this.price_Square) {
-      this._treeService.API_buySquare().subscribe(res => {
-        if (res.status === 200) {
-          this.outputShop.emit(this.quantity_Square);
-        }
-      })
-    }
-    else {
-      alert("You don't have enough money");
-    }
   }
 
   buy(form) {
@@ -88,6 +73,5 @@ export class ShopComponent {
     this.quantity_Dragon = 0;
     this.quantity_Lemon = 0;
     this.quantity_Orange = 0;
-    this.quantity_Square = 1;
   }
 }

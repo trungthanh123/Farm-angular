@@ -5,7 +5,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { ProgressbarModule } from 'ngx-bootstrap';
+import { ProgressbarModule, TooltipModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,7 +55,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     ProgressbarModule.forRoot(),
-    HttpModule, BrowserAnimationsModule, MdInputModule, MdMenuModule
+    HttpModule, BrowserAnimationsModule, MdInputModule, MdMenuModule, TooltipModule.forRoot()
 
   ],
   providers: [LoginService, CheckLogin, AppService, TreeService, ShoppingService],

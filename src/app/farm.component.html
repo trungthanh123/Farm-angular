@@ -6,12 +6,11 @@
     </div>
     <div class="col-md-7">
       <h3 [ngClass]="{animated: checkClass, flash: checkClass}" style="float:right">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></h3>
-      <h4 *ngIf="!check" style="height:40px;color:red;border:1px solid #CCCCCC;float:left;margin-top:20px;padding:7px 7px" class="animated swing notification">Số lượng cây được phép trồng đạt tối đa </h4>
+      <!--<h4 *ngIf="!check" style="height:40px;color:red;border:1px solid #CCCCCC;float:left;margin-top:20px;padding:7px 7px" class="animated swing notification">Số lượng cây được phép trồng đạt tối đa </h4>-->
     </div>
     <div class="col-md-2">
       <button type="button" name="button" class="btn btn-success" (click)="logOut()" style="float:right;margin:5px;">Log out</button>
     </div>
-
 
   </div>
   <div class="row">
@@ -36,13 +35,21 @@
       <div class="panel panel-info theGround">
         <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right" [ngClass]="{'animated pulse': checkClass}">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
         <div class="panel-body">
-
+          <!--ô 1-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 0, isPlanted[0] = false)"
             [dropEnabled]="isPlanted[0]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                  <!--{{chay ham countdown}}-->
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 0" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
-                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location1 = product.Location"></span>
+                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
               <div class="panel-body show-info" *ngIf="product.Location === 0">
                 {{product.TenCay | uppercase}}
@@ -50,11 +57,18 @@
               </div>
             </div>
           </div>
-
+          <!--ô 2-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 1, isPlanted[1] = false)"
             [dropEnabled]="isPlanted[1]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 1" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -64,11 +78,18 @@
               </div>
             </div>
           </div>
-
+          <!--ô 3-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 2, isPlanted[2] = false)"
             [dropEnabled]="isPlanted[2]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 2" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -78,11 +99,18 @@
               </div>
             </div>
           </div>
-
+          <!--ô 4-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 3, isPlanted[3] = false)"
             [dropEnabled]="isPlanted[3]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 3" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -92,11 +120,18 @@
               </div>
             </div>
           </div>
-
+          <!--ô 5-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 4, isPlanted[4] = false)"
             [dropEnabled]="isPlanted[4]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 4" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -106,11 +141,18 @@
               </div>
             </div>
           </div>
-
+          <!--ô 6-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 5, isPlanted[5] = false)"
             [dropEnabled]="isPlanted[5]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 5" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -123,8 +165,15 @@
           <!--ô 7-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 6, isPlanted[6] = false)"
             [dropEnabled]="isPlanted[6]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 6" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -137,8 +186,15 @@
           <!--ô 8-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 7, isPlanted[7] = false)"
             [dropEnabled]="isPlanted[7]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 7" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -151,8 +207,15 @@
           <!--ô 9-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 8, isPlanted[8] = false)"
             [dropEnabled]="isPlanted[8]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 8" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -165,8 +228,15 @@
           <!--ô 10-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 9, isPlanted[9] = false)"
             [dropEnabled]="isPlanted[9]">
-            <div *ngFor="let product of cayDaTrong; let i = index" 
-              [ngClass]="getClassName(product.TenCay)">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
               <span *ngIf="product.status === 'Perfect' && product.Location === 9" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
                 (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
               <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
@@ -176,8 +246,123 @@
               </div>
             </div>
           </div>
+          <!--ô 11-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 10, isPlanted[10] = false)"
+            [dropEnabled]="isPlanted[10]">
+            <button *ngIf="maxTreesAllowedToGrow <= 10" class="btn btn-warning align-middle" (click)="unlockSquare()">Unlock!</button>
+            <div *ngIf="maxTreesAllowedToGrow >= 11">
+              <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+                <template #popTemplate>
+                  <div>
+                    <p>{{product.TenCay | uppercase}}</p>
+                    <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                    <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                    <p>Time:</p>
+                  </div>
+                </template>
+                <span *ngIf="product.status === 'Perfect' && product.Location === 10" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
+                  (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
+                <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
+                <div class="panel-body show-info" *ngIf="product.Location === 10">
+                  {{product.TenCay | uppercase}}
+                  <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--ô 12-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 11, isPlanted[11] = false)"
+            [dropEnabled]="isPlanted[11]">
+            <button *ngIf="maxTreesAllowedToGrow <= 11" [disabled]="!(maxTreesAllowedToGrow === 11)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
+            <div [hidden]="!(maxTreesAllowedToGrow >= 12)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+              [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
+              <span *ngIf="product.status === 'Perfect' && product.Location === 11" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
+                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
+              <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
+              <div class="panel-body show-info" *ngIf="product.Location === 11">
+                {{product.TenCay | uppercase}}
+                <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
+              </div>
+            </div>
+          </div>
+          <!--ô 13-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 12, isPlanted[12] = false)"
+            [dropEnabled]="isPlanted[12]">
+            <button *ngIf="maxTreesAllowedToGrow <= 12" [disabled]="!(maxTreesAllowedToGrow === 12)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
+            <div [hidden]="!(maxTreesAllowedToGrow >= 13)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+              [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
+              <span *ngIf="product.status === 'Perfect' && product.Location === 12" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
+                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
+              <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
+              <div class="panel-body show-info" *ngIf="product.Location === 12">
+                {{product.TenCay | uppercase}}
+                <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
+              </div>
+            </div>
+          </div>
+          <!--ô 14-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 13, isPlanted[13] = false)"
+            [dropEnabled]="isPlanted[13]">
+            <button *ngIf="maxTreesAllowedToGrow <= 13" [disabled]="!(maxTreesAllowedToGrow === 13)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
+            <div [hidden]="!(maxTreesAllowedToGrow >= 14)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+              [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
+              <span *ngIf="product.status === 'Perfect' && product.Location === 13" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
+                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
+              <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
+              <div class="panel-body show-info" *ngIf="product.Location === 13">
+                {{product.TenCay | uppercase}}
+                <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
+              </div>
+            </div>
+          </div>
+          <!--ô 15-->
+          <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 14, isPlanted[14] = false)"
+            [dropEnabled]="isPlanted[14]">
+            <button *ngIf="maxTreesAllowedToGrow <= 14" [disabled]="!(maxTreesAllowedToGrow === 14)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
+            <div [hidden]="!(maxTreesAllowedToGrow >= 15)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+              [tooltip]="popTemplate">
+              <template #popTemplate>
+                <div>
+                  <p>{{product.TenCay | uppercase}}</p>
+                  <p>Points reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Money reward: {{product.KinhNgiemNhanDuoc}}</p>
+                  <p>Time:</p>
+                </div>
+              </template>
+              <span *ngIf="product.status === 'Perfect' && product.Location === 14" class="glyphicon glyphicon-grain" style="float:right;margin:5px;"
+                (click)="destroyaPlant(product.Location); level.addExp(product.KinhNgiemNhanDuoc); location = product.Location"></span>
+              <!--<span *ngIf="product.status === 'losewater'" class="glyphicon glyphicon-tint" style="float:right;margin:5px;" (click)="waterTree(product.Location)"></span>-->
+              <div class="panel-body show-info" *ngIf="product.Location === 14">
+                {{product.TenCay | uppercase}}
+                <em [ngStyle]="{'color': 'green'}">{{product.status}}</em>
+              </div>
+            </div>
+          </div>
           <!--[ngClass]="{animated: true, bounceOut: location === product.Location}"-->
-
 
         </div>
       </div>

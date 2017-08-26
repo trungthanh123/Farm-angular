@@ -9,7 +9,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class LevelUserComponent {
   @ViewChild('staticModal') public staticModal: ModalDirective;
-  public max: number = 100;
+  public max: number = 400;
   exp:number;
   public dynamic: number = 0;
   public type: string;

@@ -13,17 +13,18 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.css']
 })
 export class FarmComponent implements OnInit {
-    isPlanted: Array<boolean> = [true, true, true, true, true, true, true, true, true, true,];
+    //10 ô đất đầu tiên sẽ được phép trồng, 5 ô đất sau sẽ phụ thuộc vào người chơi có mở khóa hay không.
+    isPlanted: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, false, false, false, false, false];
     checkClassForWareHouse = [];
     checkClass: boolean = false;
     isMaxTree: boolean = false;
     cayDaTrong = [];
     treesPlanted: number; maxTreesAllowedToGrow: number;
-    check: boolean = true;
     fruits = [];
     my_money: number;
     my_exp: number = 0;
-
+    priceSquare = 500;
+    isUnlock = true;
     ngOnInit() {
 
     }
@@ -31,10 +32,11 @@ export class FarmComponent implements OnInit {
         this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
             this.treesPlanted = res.CayDaTrong;
             this.maxTreesAllowedToGrow = res.SoCayToiDa;
-            if (res.CayDaTrong >= res.SoCayToiDa) {
-                this.check = false;
-                // this.isMaxTree = true;
-            };
+            if (this.maxTreesAllowedToGrow >= 11) this.isPlanted[10] = true;
+            if (this.maxTreesAllowedToGrow >= 12) this.isPlanted[11] = true;
+            if (this.maxTreesAllowedToGrow >= 13) this.isPlanted[12] = true;
+            if (this.maxTreesAllowedToGrow >= 14) this.isPlanted[13] = true;
+            if (this.maxTreesAllowedToGrow >= 15) this.isPlanted[14] = true;
         });
 
         this._treeService.API_CayDaTrong().subscribe(res => {
@@ -82,10 +84,6 @@ export class FarmComponent implements OnInit {
                         if (res.Location != null)
                             this.isPlanted[res.Location] = false;
                     })
-                    //nếu CayDaTrong >= maxTreesAllowedToGrow thì sẽ disable 'drop'
-                    if (this.treesPlanted >= this.maxTreesAllowedToGrow) {
-                        this.check = false;
-                    }
                     //cap nhat lai so luong cay trong KHO
                     this._treeService.API_LayCayTrong().subscribe((res) => {
                         this.fruits = res.result;
@@ -119,10 +117,9 @@ export class FarmComponent implements OnInit {
                         //gủi my_money của user qua SHOP com
                         this._appService.moneyData(this.my_money);
                         this.treesPlanted = res.cayDaTrong;
-                        this.check = true;
                         this.isPlanted[Location] = true;
                     })
-                }, 500)
+                }, 700)
             }
         })
     }
@@ -135,17 +132,7 @@ export class FarmComponent implements OnInit {
     }
 
     getValueFromShop(dataFromShop) {
-        // nhận mở khóa ô đất từ SHOP com     
-        if (typeof dataFromShop === "number")
-            this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
-                this.maxTreesAllowedToGrow = res.SoCayToiDa;
-                this.check = true;
-                this.checkClass = true;
-                setTimeout(() => {
-                    this.checkClass = false;
-                }, 2000);
-            })
-        else if (typeof dataFromShop.form === "object") {
+        if (typeof dataFromShop.form === "object") {
             this.checkClassForWareHouse = dataFromShop.n
             // nhận số lượng tất cả cây trông đã mua từ SHOP com
             this._treeService.API_LayCayTrong().subscribe(res => {
@@ -166,6 +153,33 @@ export class FarmComponent implements OnInit {
     waterTree(location) {
         //api tuoi nuoc
         //api /data cap nhat vuon
+    }
+    unlockSquare() {
+        if (this.my_money >= this.priceSquare) {
+            this._treeService.API_buySquare().subscribe(res => {
+                if (res.status === 200) {
+                    this.isPlanted.push(true);
+                    //cập nhật tiền rồi gửi lại cho SHOP com
+                    this._treeService.API_CayDaTrong().subscribe(res => {
+                        this.my_money = res.Diem;
+                        this._appService.moneyData(this.my_money);
+                    });
+                    this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
+                        this.treesPlanted = res.CayDaTrong;
+                        this.maxTreesAllowedToGrow = res.SoCayToiDa;
+                        if (this.maxTreesAllowedToGrow >= 11) this.isPlanted[10] = true;
+                        if (this.maxTreesAllowedToGrow >= 12) this.isPlanted[11] = true;
+                        if (this.maxTreesAllowedToGrow >= 13) this.isPlanted[12] = true;
+                        if (this.maxTreesAllowedToGrow >= 14) this.isPlanted[13] = true;
+                        if (this.maxTreesAllowedToGrow >= 15) this.isPlanted[14] = true;
+                    });
+                    this.isUnlock = false;
+                }
+            })
+        }
+        else {
+            alert("You don't have enough money");
+        }
     }
 
     getClassName(name) {
