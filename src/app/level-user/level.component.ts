@@ -9,7 +9,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class LevelUserComponent {
   @ViewChild('staticModal') public staticModal: ModalDirective;
-  public max: number = 400;
+  public max: number = 500;
   exp:number;
   public dynamic: number = 0;
   public type: string;
@@ -32,7 +32,7 @@ export class LevelUserComponent {
     while (exp > this.max) {
       exp -= this.max;
       this.level++;
-      this.max = this.max + 50 * this.level;
+      this.max = this.max + 100 * this.level;
       type = 'danger';
     }
     this.dynamic = exp;
@@ -52,7 +52,7 @@ export class LevelUserComponent {
     let checkClass = false;
     let levelTemp = this.level;
     this.level = 0;
-    this.max = 100;
+    this.max = 500;
     this.exp += exp;
     this.AddPercents(this.exp);
     if(this.level > levelTemp)

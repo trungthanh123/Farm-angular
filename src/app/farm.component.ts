@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 export class FarmComponent implements OnInit {
     //10 ô đất đầu tiên sẽ được phép trồng, 5 ô đất sau sẽ phụ thuộc vào người chơi có mở khóa hay không.
     isPlanted: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, false, false, false, false, false];
-    checkClassForWareHouse = [];
+    buyingEffect = [];
     checkClass: boolean = false;
     isMaxTree: boolean = false;
     cayDaTrong = [];
@@ -25,6 +25,7 @@ export class FarmComponent implements OnInit {
     my_exp: number = 0;
     priceSquare = 500;
     isUnlock = true;
+
     ngOnInit() {
 
     }
@@ -67,6 +68,7 @@ export class FarmComponent implements OnInit {
     orderedProduct($event: any) {
 
     }
+    plantedClass = false;
     addToBasket($event: any, location) {
         let newProduct = $event.dragData;
         //this.cayDaTrong.push(newProduct);
@@ -76,9 +78,13 @@ export class FarmComponent implements OnInit {
         };
         this._treeService.API_TrongCay(data).subscribe(res => {
             if (res.status === 200) {
+                this.plantedClass = true;
                 this._treeService.API_CayDaTrong().subscribe((res) => {
                     this.cayDaTrong = res.result;
                     this.treesPlanted = res.CayDaTrong;
+                    setTimeout(() => {
+                        this.plantedClass = false;
+                    }, 1000)
                     //check 1 ô đất không được trồng 2 cây
                     this.cayDaTrong.map((res) => {
                         if (res.Location != null)
@@ -107,6 +113,7 @@ export class FarmComponent implements OnInit {
         let data = { "Location": Location, "token": "" };
         this._treeService.API_HarvestTree(data).subscribe(res => {
             if (res.status === 200) {
+                this.checkClass = true;
                 //setTimeOut de lam animation
                 setTimeout(() => {
                     // nếu không gọi API thì sẽ đụng độ, view không có số tiền thật từ server => mua đồ trong shop k đồng bộ => gọi API chỗ này
@@ -118,6 +125,7 @@ export class FarmComponent implements OnInit {
                         this._appService.moneyData(this.my_money);
                         this.treesPlanted = res.cayDaTrong;
                         this.isPlanted[Location] = true;
+                        this.checkClass = false;
                     })
                 }, 700)
             }
@@ -132,23 +140,21 @@ export class FarmComponent implements OnInit {
     }
 
     getValueFromShop(dataFromShop) {
-        if (typeof dataFromShop.form === "object") {
-            this.checkClassForWareHouse = dataFromShop.n
-            // nhận số lượng tất cả cây trông đã mua từ SHOP com
-            this._treeService.API_LayCayTrong().subscribe(res => {
-                this.fruits = res.result;
-                this.checkClass = true;
-                setTimeout(() => {
-                    this.checkClass = false;
-                }, 2000);
-            })
-        }
+        this.buyingEffect = dataFromShop.n;
+
+        // nhận số lượng tất cả cây trông đã mua từ SHOP com
+        this._treeService.API_LayCayTrong().subscribe(res => {
+            this.fruits = res.result;
+            this.checkClass = true;
+            setTimeout(() => {
+                this.checkClass = false;
+            }, 2000);
+        })
         //cập nhật tiền rồi gửi lại cho SHOP com
         this._treeService.API_CayDaTrong().subscribe(res => {
             this.my_money = res.Diem;
             this._appService.moneyData(this.my_money);
         });
-
     }
     waterTree(location) {
         //api tuoi nuoc

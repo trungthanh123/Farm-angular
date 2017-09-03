@@ -49,10 +49,10 @@ export class ShopComponent {
     
     if (this.sum <= this.currentMoney) {
       let n = [];
-      if (this.quantity_Apples != 0) n[0] = 0;
-      if (this.quantity_Orange != 0) n[1] = 1;
-      if (this.quantity_Lemon != 0) n[2] = 2;
-      if (this.quantity_Dragon != 0) n[3] = 3;
+      if (this.quantity_Apples > 0) n.push('apple');
+      if (this.quantity_Orange > 0) n.push('orange');
+      if (this.quantity_Lemon > 0) n.push('lemon'); 
+      if (this.quantity_Dragon > 0) n.push('dragon-fruit'); 
 
       let dataFromShop = { 'form': form.value, 'n': n }
       this._shoppingService.API_Shopping(data).subscribe(res => {

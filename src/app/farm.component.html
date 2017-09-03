@@ -18,7 +18,7 @@
       <div class="panel panel-success">
         <div class="panel-heading">Available products</div>
         <div class="panel-body">
-          <div *ngFor="let product of fruits; let i = index" class="panel panel-default" dnd-draggable [ngClass]="{animated: checkClass, pulse: i === checkClassForWareHouse[i]}"
+          <div *ngFor="let product of fruits; let i = index" class="panel panel-default" dnd-draggable [ngClass]="{animated: checkClass, pulse: product.TenCay === buyingEffect[0] || product.TenCay === buyingEffect[1] || product.TenCay === buyingEffect[2] || product.TenCay === buyingEffect[3]}"
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <!--[dragEnabled]="product.quantity>0"-->
             <div class="panel-body" [ngClass]="{cursor: product.SoLuong===0}">
@@ -38,7 +38,7 @@
           <!--ô 1-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 0, isPlanted[0] = false)"
             [dropEnabled]="isPlanted[0]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [tooltip]="popTemplate" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 0}">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -60,7 +60,7 @@
           <!--ô 2-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 1, isPlanted[1] = false)"
             [dropEnabled]="isPlanted[1]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 1}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -81,7 +81,7 @@
           <!--ô 3-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 2, isPlanted[2] = false)"
             [dropEnabled]="isPlanted[2]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 2}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -102,7 +102,7 @@
           <!--ô 4-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 3, isPlanted[3] = false)"
             [dropEnabled]="isPlanted[3]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 3}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -123,7 +123,7 @@
           <!--ô 5-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 4, isPlanted[4] = false)"
             [dropEnabled]="isPlanted[4]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 4}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -144,7 +144,7 @@
           <!--ô 6-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 5, isPlanted[5] = false)"
             [dropEnabled]="isPlanted[5]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 5}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -165,7 +165,7 @@
           <!--ô 7-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 6, isPlanted[6] = false)"
             [dropEnabled]="isPlanted[6]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 6}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -186,7 +186,7 @@
           <!--ô 8-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 7, isPlanted[7] = false)"
             [dropEnabled]="isPlanted[7]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 7}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -207,7 +207,7 @@
           <!--ô 9-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 8, isPlanted[8] = false)"
             [dropEnabled]="isPlanted[8]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 8}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -228,7 +228,7 @@
           <!--ô 10-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 9, isPlanted[9] = false)"
             [dropEnabled]="isPlanted[9]">
-            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+            <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 9}" [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
                   <p>{{product.TenCay | uppercase}}</p>
@@ -251,7 +251,7 @@
             [dropEnabled]="isPlanted[10]">
             <button *ngIf="maxTreesAllowedToGrow <= 10" class="btn btn-warning align-middle" (click)="unlockSquare()">Unlock!</button>
             <div *ngIf="maxTreesAllowedToGrow >= 11">
-              <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)" [tooltip]="popTemplate">
+              <div *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 10}" [tooltip]="popTemplate">
                 <template #popTemplate>
                   <div>
                     <p>{{product.TenCay | uppercase}}</p>
@@ -274,7 +274,7 @@
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 11, isPlanted[11] = false)"
             [dropEnabled]="isPlanted[11]">
             <button *ngIf="maxTreesAllowedToGrow <= 11" [disabled]="!(maxTreesAllowedToGrow === 11)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
-            <div [hidden]="!(maxTreesAllowedToGrow >= 12)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+            <div [hidden]="!(maxTreesAllowedToGrow >= 12)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 11}"
               [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
@@ -297,7 +297,7 @@
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 12, isPlanted[12] = false)"
             [dropEnabled]="isPlanted[12]">
             <button *ngIf="maxTreesAllowedToGrow <= 12" [disabled]="!(maxTreesAllowedToGrow === 12)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
-            <div [hidden]="!(maxTreesAllowedToGrow >= 13)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+            <div [hidden]="!(maxTreesAllowedToGrow >= 13)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 12}"
               [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
@@ -320,7 +320,7 @@
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 13, isPlanted[13] = false)"
             [dropEnabled]="isPlanted[13]">
             <button *ngIf="maxTreesAllowedToGrow <= 13" [disabled]="!(maxTreesAllowedToGrow === 13)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
-            <div [hidden]="!(maxTreesAllowedToGrow >= 14)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+            <div [hidden]="!(maxTreesAllowedToGrow >= 14)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 12}"
               [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
@@ -343,7 +343,7 @@
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 14, isPlanted[14] = false)"
             [dropEnabled]="isPlanted[14]">
             <button *ngIf="maxTreesAllowedToGrow <= 14" [disabled]="!(maxTreesAllowedToGrow === 14)" class="btn btn-warning" (click)="unlockSquare()">Unlock!</button>
-            <div [hidden]="!(maxTreesAllowedToGrow >= 15)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="getClassName(product.TenCay)"
+            <div [hidden]="!(maxTreesAllowedToGrow >= 15)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 14}"
               [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
