@@ -25,7 +25,7 @@ export class FarmComponent implements OnInit {
     my_exp: number = 0;
     priceSquare = 500;
     isUnlock = true;
-
+    isBuying = false;
     ngOnInit() {
 
     }
@@ -59,9 +59,9 @@ export class FarmComponent implements OnInit {
         //sau khi thanh toán tiền bên shopComponent thì số tiền còn lại được gửi lại farmComponent để cập nhật
         this._appService.shop$.subscribe(res => {
             this.my_money = res;
-            this.checkClass = true;
+            this.isBuying = true;
             setTimeout(() => {
-                this.checkClass = false;
+                this.isBuying = false;
             }, 2000);
         });
     }
@@ -145,9 +145,9 @@ export class FarmComponent implements OnInit {
         // nhận số lượng tất cả cây trông đã mua từ SHOP com
         this._treeService.API_LayCayTrong().subscribe(res => {
             this.fruits = res.result;
-            this.checkClass = true;
+            this.isBuying = true;
             setTimeout(() => {
-                this.checkClass = false;
+                this.isBuying = false;
             }, 2000);
         })
         //cập nhật tiền rồi gửi lại cho SHOP com
