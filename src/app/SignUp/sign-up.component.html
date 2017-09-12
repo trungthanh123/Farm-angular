@@ -12,8 +12,8 @@
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="name" class="form-control " required minlength="4" maxlength="24" name="name" ngModel #name="ngModel">
-          <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-            <div [hidden]="!name.errors.required">Name is required</div>
+          <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert_danger">
+            <div [hidden]="!name.errors.required"><span class="glyphicon glyphicon-warning-sign"></span> Name is required</div>
             <div [hidden]="!name.errors.minlength">Username has at least 4 characters</div>
           </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="checkbox">
           <label><input type="checkbox"> Remember me</label>
         </div>
-        <div class="alert alert-danger" [hidden]="messageLogin==''">{{messageLogin}}</div>
+        <div class=" alert_danger" [hidden]="messageLogin==''">{{messageLogin}}</div>
         <button type="submit" class="btn btn-primary" style="display:block; width:100%" (click)="vadidateForm(name.value, password.value)">Sign In</button>
       </form>
     </div>
@@ -47,7 +47,7 @@
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="name" class="form-control " formControlName="emailSignup">
-            <div *ngIf="signupForm.get('emailSignup').errors && (signupForm.get('emailSignup').dirty || signupForm.get('emailSignup').touched)" class="alert alert-danger">
+            <div *ngIf="signupForm.get('emailSignup').errors && (signupForm.get('emailSignup').dirty || signupForm.get('emailSignup').touched)" class="alert_danger">
               <div [hidden]="!signupForm.get('emailSignup').errors.required">Email is required</div>
               <div [hidden]="!signupForm.get('emailSignup').errors.minlength">Username has at least 4 characters</div>
             </div>
@@ -55,18 +55,18 @@
           <div class="form-group">
             <label for="pwd">Password</label>
             <input type="password" class="form-control" formControlName="password" >
-            <div *ngIf="signupForm.get('password').errors && (signupForm.get('password').dirty || signupForm.get('password').touched)" class="alert alert-danger">
+            <div *ngIf="signupForm.get('password').errors && (signupForm.get('password').dirty || signupForm.get('password').touched)" class=" alert_danger">
               <div [hidden]="!signupForm.get('password').errors.required">Password is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="pwd">Confirm Password</label>
             <input type="password" class="form-control" formControlName="passwordConfirm">
-             <div *ngIf="signupForm.get('passwordConfirm').errors && (signupForm.get('passwordConfirm').dirty || signupForm.get('passwordConfirm').touched)" class="alert alert-danger">
+             <div *ngIf="signupForm.get('passwordConfirm').errors && (signupForm.get('passwordConfirm').dirty || signupForm.get('passwordConfirm').touched)" class=" alert_danger">
               <div [hidden]="!signupForm.get('passwordConfirm').errors.required">Confirm Password is required</div>
             </div>
           </div>
-          <div [ngClass]="{'alert': true, 'alert-danger': !(messageSignup==='singup done!'), 'alert-success': messageSignup==='singup done!'}"
+          <div [ngClass]="{'alert_danger': !(messageSignup==='singup done!'), 'alert-success': messageSignup==='singup done!'}"
             [hidden]="messageSignup==''">{{messageSignup}}</div>
           <button type="submit" class="btn btn-primary" style="display:block; width:100%" [disabled]="!f.valid">Sign up</button>
         </form>

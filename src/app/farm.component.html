@@ -1,39 +1,48 @@
 <div class="container">
-  <div class="row">
-
-    <div class="col-md-3">
+  
+  <div class="row" style="padding-top:15px">
+    <div class="col-md-3 col-xs-5">
+      <div class="chip">
+        <img src="assets/img/farmer.png" alt="Person" width="96" height="96"> {{username}}
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-7">
       <level-user #level></level-user>
     </div>
-    <div class="col-md-7">
-      <h3 [ngClass]="{animated: isBuying || checkClass, flash: isBuying || checkClass}" style="float:right">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></h3>
+    <div class="col-md-3 col-xs-9">
+      <ul class="nav navbar-nav menu">
+        <li><h3 [ngClass]="{animated: isBuying || checkClass, flash: isBuying || checkClass}">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></h3></li>
+        <li><my-shop (outputShop)="getValueFromShop($event)"></my-shop></li>
+        <li class="hvr-float-shadow"><img class="" src="assets/img/neighborhood.png" alt="" width="55" height="50" [ngStyle]="{'cursor': 'pointer'}"></li>
+      </ul>
       <!--<h4 *ngIf="!check" style="height:40px;color:red;border:1px solid #CCCCCC;float:left;margin-top:20px;padding:7px 7px" class="animated swing notification">Số lượng cây được phép trồng đạt tối đa </h4>-->
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 col-xs-3">
       <button type="button" name="button" class="btn btn-success" (click)="logOut()" style="float:right;margin:5px;">Log out</button>
     </div>
-
   </div>
+  
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 col-xs-12">
       <div class="panel panel-success">
-        <div class="panel-heading">Available products</div>
+        <div class="panel-heading">Available Seeds<br>Fruit Trees</div>
         <div class="panel-body">
           <div *ngFor="let product of fruits; let i = index" class="panel panel-default" dnd-draggable [ngClass]="{animated: isBuying, pulse: product.TenCay === buyingEffect[0] || product.TenCay === buyingEffect[1] || product.TenCay === buyingEffect[2] || product.TenCay === buyingEffect[3]}"
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <div class="panel-body" [ngClass]="{cursor: product.SoLuong===0}">
-              <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(available: {{product.SoLuong}})</div>
+              <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(quantity: {{product.SoLuong}})</div>
               <div [hidden]="product.SoLuong>0">
                 <del>{{product.TenCay | uppercase}}</del><br>(NOT available)</div>
             </div>
           </div>
         </div>
       </div>
-      <my-shop (outputShop)="getValueFromShop($event)"></my-shop>
+     
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-xs-12" style="margin-bottom:0">
       <div class="panel panel-info theGround">
-        <div class="panel-heading">The Ground<br>(total: {{total()}})<span class="pull-right">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
-        <div class="panel-body">
+        <div class="panel-heading">The Orchard<br>(total: {{total()}})<span class="pull-right">Maximum Trees: {{maxTreesAllowedToGrow}}</span></div>
+        <div class="panel-body garden">
           <!--ô 1-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 0, isPlanted[0] = false)"
             [dropEnabled]="isPlanted[0]">
@@ -256,7 +265,7 @@
           </div>
           <!--ô 11-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 10, isPlanted[10] = false)"
-            [dropEnabled]="isPlanted[10]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 11}" >
+            [dropEnabled]="isPlanted[10]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 11}">
             <button *ngIf="maxTreesAllowedToGrow <= 10" class="btn btn-warning align-middle" (click)="staticModal.show()">Unlock!</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
@@ -297,7 +306,8 @@
           <!--ô 12-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 11, isPlanted[11] = false)"
             [dropEnabled]="isPlanted[11]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 12}">
-            <button *ngIf="maxTreesAllowedToGrow <= 11" [disabled]="!(maxTreesAllowedToGrow === 11)" class="btn btn-warning align-middle" (click)="staticModal.show()">Unlock!</button>
+            <button *ngIf="maxTreesAllowedToGrow <= 11" [disabled]="!(maxTreesAllowedToGrow === 11)" class="btn btn-warning align-middle"
+              (click)="staticModal.show()">Unlock!</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -335,7 +345,8 @@
           <!--ô 13-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 12, isPlanted[12] = false)"
             [dropEnabled]="isPlanted[12]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 13}">
-            <button *ngIf="maxTreesAllowedToGrow <= 12" [disabled]="!(maxTreesAllowedToGrow === 12)" class="btn btn-warning align-middle" (click)="staticModal.show()">Unlock!</button>
+            <button *ngIf="maxTreesAllowedToGrow <= 12" [disabled]="!(maxTreesAllowedToGrow === 12)" class="btn btn-warning align-middle"
+              (click)="staticModal.show()">Unlock!</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -373,7 +384,8 @@
           <!--ô 14-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 13, isPlanted[13] = false)"
             [dropEnabled]="isPlanted[13]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 14}">
-            <button *ngIf="maxTreesAllowedToGrow <= 13" [disabled]="!(maxTreesAllowedToGrow === 13)" class="btn btn-warning align-middle" (click)="staticModal.show()">Unlock!</button>
+            <button *ngIf="maxTreesAllowedToGrow <= 13" [disabled]="!(maxTreesAllowedToGrow === 13)" class="btn btn-warning align-middle"
+              (click)="staticModal.show()">Unlock!</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -411,7 +423,8 @@
           <!--ô 15-->
           <div class="panel panel-default square" [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 14, isPlanted[14] = false)"
             [dropEnabled]="isPlanted[14]" [ngClass]="{animated: true, pulse: maxTreesAllowedToGrow === 15}">
-            <button *ngIf="maxTreesAllowedToGrow <= 14" [disabled]="!(maxTreesAllowedToGrow === 14)" class="btn btn-warning align-middle" (click)="staticModal.show()">Unlock!</button>
+            <button *ngIf="maxTreesAllowedToGrow <= 14" [disabled]="!(maxTreesAllowedToGrow === 14)" class="btn btn-warning align-middle"
+              (click)="staticModal.show()">Unlock!</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-sm">

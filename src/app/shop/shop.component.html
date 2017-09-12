@@ -1,6 +1,10 @@
-<button type="button" class="btn btn-primary btn-lg" (click)="parentModal.show()" style="width:100%; height:10vh; font-size:25px">Shop</button>
+<!--<button type="button" class="btn btn-primary btn-lg" (click)="parentModal.show()" style="width:100%; height:10vh; font-size:25px">Shop</button>-->
 
-<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="hvr-float-shadow">
+  <img src="assets/img/shop.png" (click)="parentModal.show()" alt="" width="70" height="50" class="img-responsive" [ngStyle]="{'cursor': 'pointer'}">
+</div>
+
+<div class="modal fade " bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content ">
       <div class="modal-header">
@@ -11,59 +15,61 @@
                 </button>
       </div>
       <div class="modal-body">
+        <div class="row">
         <form #Form="ngForm" (ngSubmit)="buy(Form)">
-          <div class="col-md-12">
-            <div class="col-md-2">
+          <div class="col-md-12 col-xs-12">
+            <div class="col-md-3 col-xs-3">
               <div class="form-group product">
                 <!--<label for="usr" class="product_name">Apple</label>-->
-                <img src="assets/fruits/apple.png" alt="" width="70px" height="74px">
+                <img src="assets/fruits/apple.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfApples" [(ngModel)]="quantity_Apples">
                 <h4 class="product_price">{{price_Apple * quantity_Apples}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 col-xs-3">
               <div class="form-group product">
                 <!--<label for="usr" class="product_name">Orange</label>-->
-                <img src="assets/fruits/orange.png" alt="" width="70px" height="74px">
+                <img src="assets/fruits/orange.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfOranges" [(ngModel)]="quantity_Orange">
                 <h4 class="product_price">{{price_Orange * quantity_Orange}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 col-xs-3">
               <div class="form-group product">
                 <!--<label for="usr" class="product_name">Lemon</label>-->
-                <img src="assets/fruits/banana.png" alt="" width="70px" height="74px">
+                <img src="assets/fruits/banana.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfLemons" [(ngModel)]="quantity_Lemon">
                 <h4 class="product_price">{{price_Lemon * quantity_Lemon}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 col-xs-3">
               <div class="form-group product">
                 <!--<label for="usr" class="product_name">Dragon</label>-->
-                <img src="assets/fruits/grapes.png" alt="" width="70px" height="74px">
+                <img src="assets/fruits/grapes.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfDragons" [(ngModel)]="quantity_Dragon">
                 <h4 class="product_price">{{price_Dragon * quantity_Dragon}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
-            <div class="col-md-2">
+            <!--<div class="col-md-2 col-xs-2">
               <div class="form-group product">
-                <!--<label for="usr" class="product_name">Coconut</label>-->
-                <img src="assets/fruits/strawberry.png" alt="" width="70px" height="74px">
+                
+                <img src="assets/fruits/strawberry.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input disabled type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfCoconuts" [(ngModel)]="quantity_Coconut">
                 <h4 class="product_price">{{price_Coconut * quantity_Coconut}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
               <div class="form-group product">
-                <!--<label for="usr" class="product_name">Coconut</label>-->
-                <img src="assets/fruits/pear.png" alt="" width="70px" height="74px">
+                
+                <img src="assets/fruits/pear.png" alt="" width="70px" height="74px" class="img-responsive">
                 <input disabled type="number" class="form-control product_quantity" id="usr" min="0" max="5" name="numberOfPears" [(ngModel)]="quantity_Pear">
                 <h4 class="product_price">{{price_Pear * quantity_Pear}} <span class="glyphicon glyphicon-gbp" style="color:#5CB85C;"></span></h4>
               </div>
-            </div>
+            </div>-->
           </div>
           <button class="btn btn-primary btn-lg" type="submit" (click)="parentModal.hide()" style="display:block; margin:auto;">Buy</button>
         </form>
+        </div>
       </div>
     </div>
   </div>

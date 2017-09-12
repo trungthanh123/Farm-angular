@@ -21,6 +21,7 @@ export class FarmComponent implements OnInit {
     cayDaTrong = [];
     treesPlanted: number; maxTreesAllowedToGrow: number;
     fruits = [];
+    username:string;
     my_money: number;
     my_exp: number = 0;
     priceSquare = 500;
@@ -30,6 +31,7 @@ export class FarmComponent implements OnInit {
 
     }
     constructor(private _appService: AppService, private router: Router, private loginService: LoginService, private _treeService: TreeService) {
+        this.username = localStorage.getItem("username");
         this._treeService.API_MaxTree_TreesPlanted().subscribe(res => {
             this.treesPlanted = res.CayDaTrong;
             this.maxTreesAllowedToGrow = res.SoCayToiDa;

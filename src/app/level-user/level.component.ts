@@ -20,7 +20,7 @@ export class LevelUserComponent {
   }
 
   public constructor(private _appService: AppService) {
-    this.username = localStorage.getItem("username");
+    // this.username = localStorage.getItem("username");
     _appService.exp$.subscribe(data => {
       this.exp = data;
       this.AddPercents(this.exp);
