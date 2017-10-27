@@ -13,15 +13,18 @@ import { PagerService } from './services/pagination.service'
 })
 export class FarmComponent implements OnInit {
     public reward: number = 0;
+    money: number;
+    priceALand = 500;
     availableProducts: Array<Product> = [];
     shoppingBasket: Array<Product> = [];
-    treePlanted = 0; maxTreesAllowedToGrow = 10;
+    treePlanted = 0; maxTreesAllowedToGrow = 5;
     check: boolean = true;
     pager: any = {};
     pageFruits: any[];
     filterValue: string;
-
+    locked: boolean = true;
     check1 = true;
+    isPlanted = [true, true, true, true, true, false, false, false, false, false,];
     // checkClassForTree:boolean = false;
     ngOnInit() {
         // xuất ra màn hình những cái đã lưu trữ stogate
@@ -48,6 +51,9 @@ export class FarmComponent implements OnInit {
         _appservice.quantitySquare_shop$.subscribe(data => {
             this.maxTreesAllowedToGrow += data; this.check = true;
         })
+        _appservice.money$.subscribe(data => {
+            this.money = data;
+        });
     }
 
     setPage(page: number) {
@@ -88,12 +94,12 @@ export class FarmComponent implements OnInit {
     }
 
     exp: number = 0;
-    destroyaPlant(index) {
-        this.treePlanted--;
-        if (this.treePlanted < this.maxTreesAllowedToGrow) this.check = true;
+    destroyaPlant(index, location) {
+        // this.treePlanted--;
+        // if (this.treePlanted < this.maxTreesAllowedToGrow) this.check = true;
         //this.exp = this.shoppingBasket[index].exp;
         //console.log(this.exp);
-        this.check1 = true;
+        this.isPlanted[location] = true;
         this.shoppingBasket.splice(index, 1);
 
     }
@@ -111,6 +117,16 @@ export class FarmComponent implements OnInit {
         this.availableProducts[1].quantity += Number(event.numberOfOranges);
         this.availableProducts[2].quantity += Number(event.numberOfLemons);
         this.availableProducts[3].quantity += Number(event.numberOfDragons);
+    }
+
+    unlockTheLand(n) {
+        if (this.money >= this.priceALand) {
+        this.isPlanted[n] = true;
+            this.maxTreesAllowedToGrow++;
+        }
+        else {
+            alert("k du tien");
+        }
     }
 }
 

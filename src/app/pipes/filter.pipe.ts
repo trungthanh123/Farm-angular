@@ -10,7 +10,9 @@ export class FilterPipe implements PipeTransform {
     if(!items || !term) {
       return items;
     }
-    term = term.toUpperCase();
+    //term = term.toUpperCase();
+    
+    
     // items.map(res => res.name = res.name.toLowerCase());
     return items.filter(item => item.name.indexOf(term) !== -1);
   }

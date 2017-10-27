@@ -5,7 +5,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { ProgressbarModule } from 'ngx-bootstrap';
+import { ProgressbarModule, PopoverModule, TooltipModule  } from 'ngx-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdInputModule} from '@angular/material';
 import {MdProgressSpinnerModule} from '@angular/material';
@@ -38,7 +38,6 @@ const appRoutes: Routes = [
     LevelUserComponent, ShopComponent, MoneyComponent, FilterPipe
   ],
   imports: [
-
     BrowserModule,
     DndModule.forRoot(),
     ButtonsModule.forRoot(),
@@ -48,7 +47,8 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-    ProgressbarModule.forRoot(), BrowserAnimationsModule, MdInputModule, MdProgressSpinnerModule
+    ProgressbarModule.forRoot(), BrowserAnimationsModule, MdInputModule, MdProgressSpinnerModule,
+    PopoverModule.forRoot(), TooltipModule.forRoot()
   ],
   providers: [LoginService, CheckLogin,AppService, PagerService],
   bootstrap: [AppComponent]
