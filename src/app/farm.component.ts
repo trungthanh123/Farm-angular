@@ -17,15 +17,15 @@ export class FarmComponent implements OnInit {
     priceALand = 500;
     availableProducts: Array<Product> = [];
     shoppingBasket: Array<Product> = [];
-    treePlanted = 0; maxTreesAllowedToGrow = 5;
-    check: boolean = true;
+    maxTreesAllowedToGrow = 5;
+    
     pager: any = {};
     pageFruits: any[];
     filterValue: string;
     locked: boolean = true;
     check1 = true;
     isPlanted = [true, true, true, true, true, false, false, false, false, false,];
-    // checkClassForTree:boolean = false;
+    
     ngOnInit() {
         // xuất ra màn hình những cái đã lưu trữ stogate
         // if(localStorage.getItem("planted-storage") != null)
@@ -48,9 +48,7 @@ export class FarmComponent implements OnInit {
         this.availableProducts.push(new Product(3, 'tomato', 4, '', 30, 5, '', 0, 'assets/fruits/tomato.png'));
         // this.availableProducts.push(new Product(3, 'CHERRY', 4, '', 30, 100, ''));
         //nhan data khi ng choi mua 1 square tu 'shop' component
-        _appservice.quantitySquare_shop$.subscribe(data => {
-            this.maxTreesAllowedToGrow += data; this.check = true;
-        })
+        
         _appservice.money$.subscribe(data => {
             this.money = data;
         });
@@ -80,8 +78,13 @@ export class FarmComponent implements OnInit {
         //stogate cây đã trồng
         // localStorage.setItem("planted-storage", JSON.stringify(this.shoppingBasket));                
         //nếu trồng được 10 cây thì sẽ disable 'drop'
-        this.treePlanted = this.treePlanted + 1;
-        if (this.treePlanted >= this.maxTreesAllowedToGrow) { this.check = false }
+        this.shoppingBasket.map( (tree) => {
+            if(tree.location) 
+             this.isPlanted[tree.location]=false;
+        })
+        // this.treePlanted = this.treePlanted + 1;
+        // if (this.treePlanted >= this.maxTreesAllowedToGrow) { this.check = false }
+
         // localStorage.setItem("count-planted", this.dem.toString());
     }
 
@@ -119,10 +122,16 @@ export class FarmComponent implements OnInit {
         this.availableProducts[3].quantity += Number(event.numberOfDragons);
     }
 
-    unlockTheLand(n) {
+    unlockTheLand() {
         if (this.money >= this.priceALand) {
-        this.isPlanted[n] = true;
+            this.money -= this.priceALand;
             this.maxTreesAllowedToGrow++;
+            if(this.maxTreesAllowedToGrow >= 6) this.isPlanted[5] = true;
+            if(this.maxTreesAllowedToGrow >= 7) this.isPlanted[6] = true;
+            if(this.maxTreesAllowedToGrow >= 8) this.isPlanted[7] = true;
+            if(this.maxTreesAllowedToGrow >= 9) this.isPlanted[8] = true;
+            if(this.maxTreesAllowedToGrow >= 10) this.isPlanted[9] = true;
+            this._appservice.shopData(this.money);
         }
         else {
             alert("k du tien");

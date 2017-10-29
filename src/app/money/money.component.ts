@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
 })
 
 export class MoneyComponent implements OnInit {
-  your_money: number = 1000;
+  your_money: number = 10000;
   checkClass:boolean = false;
   constructor(private _appService: AppService) {
     // Lắng nghe câu trả lời từ 'shop' component (service)

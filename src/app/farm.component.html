@@ -113,8 +113,8 @@
           <!--mở ô đất 1/ ô 6 -->
           <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 5, isPlanted[5] = false)"
             [dropEnabled]="isPlanted[5]">
-            <img class="hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 5" src="assets/img/milestones.png" alt="" width="100px" height="89px" (click)="staticModal.show()"
-            popover="Unlock the land" triggers="mouseenter:mouseleave">
+            <button class="btn btn-success hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 5" alt="" width="100px" height="89px"
+              (click)="staticModal.show()" popover="Unlock the land" triggers="mouseenter:mouseleave" [disabled]="!(maxTreesAllowedToGrow == 5)">Unlock</button>
             <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -126,7 +126,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <button class="btn btn-primary" (click)="unlockTheLand(n = 5); staticModal.hide()">OK</button>
+                    <button class="btn btn-primary" (click)="unlockTheLand(); staticModal.hide()">OK</button>
                     <button class="btn btn-danger" (click)="staticModal.hide()">Cancel</button>
                   </div>
                 </div>
@@ -142,78 +142,134 @@
               </div>
             </div>
           </div>
-          <!--mở ô đất 2 -->
-          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 7, check1 = false)"
-            [dropEnabled]="false">
-            <div class="hvr-float-shadow" popover="Unlock the land" triggers="mouseenter:mouseleave">
-              <img *ngIf="true" src="assets/img/milestones.png" alt="" width="100px" height="89px">
-              <div [hidden]="true" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
-                <span *ngIf="product.location === 5" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-                <span *ngIf="product.location === 5" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
-                  <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
-                </span>
-                <div class="panel-body" *ngIf="product.location === 5">
-                  <img src="{{product.img}}" alt="" width="65px" height="68px">
+          <!--mở ô đất 2/ ô 7 -->
+          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 6, isPlanted[6] = false)"
+            [dropEnabled]="isPlanted[6]">
+            <button class="btn btn-success hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 6" alt="" width="100px" height="89px"
+              (click)="staticModal.show()" popover="Unlock the land" triggers="mouseenter:mouseleave" [disabled]="!(maxTreesAllowedToGrow == 6)">Unlock</button>
+            <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title pull-left">500$ to unlock this land?</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <button class="btn btn-primary" (click)="unlockTheLand(); staticModal.hide()">OK</button>
+                    <button class="btn btn-danger" (click)="staticModal.hide()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="!maxTreesAllowedToGrow >= 7" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
+              <span *ngIf="product.location === 6" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
+              <span *ngIf="product.location === 6" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
+                <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
+              </span>
+              <div class="panel-body" *ngIf="product.location === 6">
+                <img src="{{product.img}}" alt="" width="65px" height="68px">
+              </div>
+            </div>
+          </div>
+          <!--mở ô đất 3/ ô 8-->
+          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 7, isPlanted[7] = false)"
+            [dropEnabled]="isPlanted[7]">
+            <button class="btn btn-success hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 7" alt="" width="100px" height="89px"
+            (click)="staticModal.show()" popover="Unlock the land" triggers="mouseenter:mouseleave" [disabled]="!(maxTreesAllowedToGrow == 7)">Unlock</button>
+            <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title pull-left">500$ to unlock this land?</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <button class="btn btn-primary" (click)="unlockTheLand(); staticModal.hide()">OK</button>
+                    <button class="btn btn-danger" (click)="staticModal.hide()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="!maxTreesAllowedToGrow >= 8" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
+              <span *ngIf="product.location === 7" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
+              <span *ngIf="product.location === 7" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
+                <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
+              </span>
+              <div class="panel-body" *ngIf="product.location === 7">
+                <img src="{{product.img}}" alt="" width="65px" height="68px">
+              </div>
+            </div>
+          </div>
+          <!--mở ô đất 4/ ô 9-->
+          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 8, isPlanted[8] = false)"
+          [dropEnabled]="isPlanted[8]">
+          <button class="btn btn-success hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 8" alt="" width="100px" height="89px"
+          (click)="staticModal.show()" popover="Unlock the land" triggers="mouseenter:mouseleave" [disabled]="!(maxTreesAllowedToGrow == 8)">Unlock</button>
+          <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">500$ to unlock this land?</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <button class="btn btn-primary" (click)="unlockTheLand(); staticModal.hide()">OK</button>
+                  <button class="btn btn-danger" (click)="staticModal.hide()">Cancel</button>
                 </div>
               </div>
             </div>
           </div>
-          <!--mở ô đất 3 -->
-          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 8, check1 = false)"
-            [dropEnabled]="false">
-            <div class="hvr-float-shadow" popover="Unlock the land" triggers="mouseenter:mouseleave">
-              <img *ngIf="true" src="assets/img/milestones.png" alt="" width="100px" height="89px">
-              <div [hidden]="true" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
-                <span *ngIf="product.location === 5" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-                <span *ngIf="product.location === 5" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
-                  <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
-                </span>
-                <div class="panel-body" *ngIf="product.location === 5">
-                  <img src="{{product.img}}" alt="" width="65px" height="68px">
+          <div [hidden]="!maxTreesAllowedToGrow >= 9" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
+            <span *ngIf="product.location === 8" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
+            <span *ngIf="product.location === 8" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
+              <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
+            </span>
+            <div class="panel-body" *ngIf="product.location === 8">
+              <img src="{{product.img}}" alt="" width="65px" height="68px">
+            </div>
+          </div>
+        </div>
+          <!--mở ô đất 5/ ô 10-->
+          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 9, isPlanted[9] = false)"
+          [dropEnabled]="isPlanted[9]">
+          <button class="btn btn-success hvr-grow-rotate" *ngIf="maxTreesAllowedToGrow <= 9" alt="" width="100px" height="89px"
+          (click)="staticModal.show()" popover="Unlock the land" triggers="mouseenter:mouseleave" [disabled]="!(maxTreesAllowedToGrow == 9)">Unlock</button>
+          <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">500$ to unlock this land?</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <button class="btn btn-primary" (click)="unlockTheLand(); staticModal.hide()">OK</button>
+                  <button class="btn btn-danger" (click)="staticModal.hide()">Cancel</button>
                 </div>
               </div>
             </div>
           </div>
-          <!--mở ô đất 4 -->
-          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 9, check1 = false)"
-            [dropEnabled]="false">
-            <div class="hvr-float-shadow" popover="Unlock the land" triggers="mouseenter:mouseleave">
-              <img *ngIf="true" src="assets/img/milestones.png" alt="" width="100px" height="89px">
-              <div [hidden]="true" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
-                <span *ngIf="product.location === 5" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-                <span *ngIf="product.location === 5" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
-                  <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
-                </span>
-                <div class="panel-body" *ngIf="product.location === 5">
-                  <img src="{{product.img}}" alt="" width="65px" height="68px">
-                </div>
-              </div>
+          <div [hidden]="!maxTreesAllowedToGrow >= 10" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
+            <span *ngIf="product.location === 9" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
+            <span *ngIf="product.location === 9" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
+              <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
+            </span>
+            <div class="panel-body" *ngIf="product.location === 9">
+              <img src="{{product.img}}" alt="" width="65px" height="68px">
             </div>
           </div>
-          <!--mở ô đấ 5 -->
-          <div class="panel panel-default square " [dropZones]="['demo1']" dnd-droppable (onDropSuccess)="addToBasket($event, n = 10, check1 = false)"
-            [dropEnabled]="false">
-            <div class="hvr-float-shadow" popover="Unlock the land" triggers="mouseenter:mouseleave" (click)="unlockTheLand()">
-              <img *ngIf="locked && maxTreesAllowedToGrow === 5" src="assets/img/milestones.png" alt="" width="100px" height="89px">
-              <div [hidden]="locked && maxTreesAllowedToGrow === 5" *ngFor="let product of shoppingBasket; let i = index" [ngClass]="{animated:true, tada:true}">
-                <span *ngIf="product.location === 10" class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i, product.location)"></span>
-                <span *ngIf="product.location === 10" (click)="money.updateYourMoney(product.reward); destroyaPlant(i, product.location); level.AddPercents(product.exp)">
-                  <img src="assets/img/scythe.png" alt="" style="float:left;margin:5px;">
-                </span>
-                <div class="panel-body" *ngIf="product.location === 10">
-                  <img src="{{product.img}}" alt="" width="65px" height="68px">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--<div *ngFor="let product of shoppingBasket; let i = index" class="panel panel-default square" [ngClass]="{animated:true, tada:true}">
-            <span class="glyphicon glyphicon-trash" style="float:right;margin:5px;" (click)="destroyaPlant(i)"></span>
-            <span class="glyphicon glyphicon-grain" (click)="money.updateYourMoney(product.reward)" style="float:left;margin:5px;" (click)="destroyaPlant(i)"
-              (click)="level.AddPercents(product.exp)"></span>
-            <div class="panel-body">
-              {{product.name}}
-            </div>
-          </div>-->
+        </div>
         </div>
       </div>
     </div>
