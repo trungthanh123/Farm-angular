@@ -124,11 +124,6 @@
   background-color: #f1f1f1;
 }
 
-
-/*.garden {
-    margin: 0 auto;
-}*/
-
 .chip img {
   float: left;
   margin: 0 10px 0 -25px;
@@ -139,6 +134,25 @@
 
 .menu li {
   padding: 0 10px;
+}
+
+.menu li>p {
+  font-size: 24px;
+  position: relative;
+  bottom: -10px;
+}
+
+.seed {
+  height: 13.6vh;
+  width: 60%;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 5%;
+}
+
+.seed:last-child {
+  margin-bottom: 0;
 }
 
 @media only screen and (max-width: 500px) {
@@ -162,7 +176,11 @@
     float: left;
     text-decoration: none;
   }
- 
+  .menu li>p {
+    font-size: 15px;
+    position: relative;
+    bottom: -10px;
+  }
   .product {
     width: auto;
     height: 150px;
@@ -176,7 +194,7 @@
   .theGround {
     height: 50%;
   }
-  .chip,
+  .chip, .square p,
   .panel-heading {
     font-size: 10px;
   }

@@ -1,0 +1,31 @@
+post /signup {userName:_______,passWord:_____}
+post /login {userName:_______,passWord:_____}
+post /data {token:______} hien vu?n c?a ngu?i choi
+post /plan {TenCay:____ ,Location:____,token:_____} tr?ng cây
+post /test {Location:____,token:____} thu ho?ch cây
+post /detail {token:____}show d? li?u cây
+post /buy {[{TenCay:___, SoLuong:Number}, ...], token:____}
+/buyland {token:}
+/show {token:___}
+----SFTP upcode ----
+
+IP: 103.48.191.254
+Port: 22
+
+Proto: SFTP
+
+USer: thanhthai
+
+Pass: thanhthaiuit
+
+
+
+note: thu m?c code c?a Thành là thu muc thanhthaifarm.com
+
+
+
+thu muc code cua thai la api.thanhthaifarm.com
+
+103.48.191.254
+cd api.thanhthaifarm.com/app
+nodemon index.js

@@ -1,17 +1,17 @@
 <div class="container">
   
   <div class="row" style="padding-top:15px">
-    <div class="col-md-3 col-xs-5">
+    <div class="col-md-3 col-xs-6">
       <div class="chip">
-        <img src="assets/img/farmer.png" alt="Person" width="96" height="96"> {{username}}
+        <img src="assets/img/farmer.png" alt="Person"> {{username}}
       </div>
     </div>
-    <div class="col-md-4 col-xs-7">
+    <div class="col-md-4 col-xs-6">
       <level-user #level></level-user>
     </div>
     <div class="col-md-3 col-xs-9">
       <ul class="nav navbar-nav menu">
-        <li><h3 [ngClass]="{animated: isBuying || checkClass, flash: isBuying || checkClass}">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></h3></li>
+        <li><p [ngClass]="{animated: isBuying || checkClass, flash: isBuying || checkClass}">{{my_money}}<span class="glyphicon glyphicon-gbp" style="color: #5CB85C;"></span></p></li>
         <li><my-shop (outputShop)="getValueFromShop($event)"></my-shop></li>
         <li class="hvr-float-shadow"><img class="" src="assets/img/neighborhood.png" alt="" width="55" height="50" [ngStyle]="{'cursor': 'pointer'}"></li>
       </ul>
@@ -24,10 +24,10 @@
   
   <div class="row">
     <div class="col-md-3 col-xs-12">
-      <div class="panel panel-success">
+      <div class="panel panel-info warehouse">
         <div class="panel-heading">Available Seeds<br>Fruit Trees</div>
         <div class="panel-body">
-          <div *ngFor="let product of fruits; let i = index" class="panel panel-default" dnd-draggable [ngClass]="{animated: isBuying, pulse: product.TenCay === buyingEffect[0] || product.TenCay === buyingEffect[1] || product.TenCay === buyingEffect[2] || product.TenCay === buyingEffect[3]}"
+          <div *ngFor="let product of fruits; let i = index" class="panel panel-default seed" dnd-draggable [ngClass]="{animated: isBuying, pulse: product.TenCay === buyingEffect[0] || product.TenCay === buyingEffect[1] || product.TenCay === buyingEffect[2] || product.TenCay === buyingEffect[3]}"
             [dragData]="product" (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']" [dragEnabled]="product.SoLuong>0">
             <div class="panel-body" [ngClass]="{cursor: product.SoLuong===0}">
               <div [hidden]="product.SoLuong===0">{{product.TenCay | uppercase}}<br>(quantity: {{product.SoLuong}})</div>
@@ -401,7 +401,7 @@
                 </div>
               </div>
             </div>
-            <div [hidden]="!(maxTreesAllowedToGrow >= 14)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 12}"
+            <div [hidden]="!(maxTreesAllowedToGrow >= 14)" *ngFor="let product of cayDaTrong; let i = index" [ngClass]="{animated:true, rollOut: location == product.Location && checkClass, bounceIn: plantedClass && n == 13}"
               [tooltip]="popTemplate">
               <template #popTemplate>
                 <div>
